@@ -1,0 +1,1422 @@
+{
+  "version": 1,
+  "name": "Wakapi API Reference",
+  "documents": [
+    {
+      "id": "index.md",
+      "kind": "page",
+      "title": "Wakapi API Reference",
+      "description": "A navigable Sourcey-generated reference for the Wakapi REST API, built from the project's own OpenAPI spec.",
+      "tab": "",
+      "url": "https://merioneeason.github.io/wakapi-api-docs/",
+      "markdown": "https://merioneeason.github.io/wakapi-api-docs/index.md",
+      "file": "index.md",
+      "searchText": "# wakapi api reference {#wakapi-api-reference} is a minimalist, self-hosted, wakatime-compatible backend for coding statistics ([wakapi.dev](https://wakapi.dev), [github.com/muety/wakapi](https://github.com/muety/wakapi), mit licensed). this site generated the rest api: 22 operations across summaries, heartbeats, projects, statistics, leaders, badges, and diagnostics. it was built with [sourcey](https://sourcey.com) from openapi spec shipped in repository itself (`static/docs/swagger.yaml`), pinned to commit [`c561bbc174d139d2d3f8ee222ca61671cdc3caf1`](https://github.com/muety/wakapi/commit/c561bbc174d139d2d3f8ee222ca61671cdc3caf1) (2026-11-08). ## why exists {#why-this-exists} wakapi's documented today only as raw swagger file inside ui served by running instance. there no public, linkable user or integrator can read without server first. closes that gap: every endpoint, parameter, schema spec, one navigable place. what covered {#what-is-covered} - **summaries** — per-user status bar, ranges, all-time views **heartbeats** native heartbeat ingestion (single bulk) **projects, leaders** filtered project lists, stats leaderboards **badges diagnostics** shields.io-compatible badge data, plugin error reports **health** application health start [authentication](/wakapi-api-docs/authentication.html) `authorization` header, then [sending heartbeats](/wakapi-api-docs/heartbeats.html) worked `curl` example. full endpoint list under **api reference**.",
+      "documentId": "index",
+      "locale": "en",
+      "contentLocale": "en",
+      "contentVersion": "current",
+      "versionScope": "site",
+      "alternates": [
+        {
+          "locale": "en",
+          "contentVersion": "current",
+          "url": "https://merioneeason.github.io/wakapi-api-docs/",
+          "markdown": "https://merioneeason.github.io/wakapi-api-docs/index.md"
+        }
+      ]
+    },
+    {
+      "id": "authentication.md",
+      "kind": "page",
+      "title": "Authentication",
+      "description": "How to authenticate against the Wakapi API with an API key.",
+      "tab": "",
+      "url": "https://merioneeason.github.io/wakapi-api-docs/authentication.html",
+      "markdown": "https://merioneeason.github.io/wakapi-api-docs/authentication.md",
+      "file": "authentication.md",
+      "searchText": "# authentication {#authentication} all authenticated endpoints take an api key in the `authorization` header. is your wakapi key, base64-encoded and prefixed with `basic` (as documented spec itself): ```http authorization: basic <base64-of-your-api-key> ``` example from spec: ody2ndhknzqtmtljns00ntjilwjhmdetzmizzwm3mgq0yzjmcg== get instance: log in, open profile/settings page, copy shown there. keys are per user; keep yours private never commit it. under `/compat/wakatime/v1/` follow wakatime shape accept same shields badge endpoint (`/compat/shields/v1/{user}/{interval}/{filter}`) needs user to have public data access enabled instead of a key.",
+      "documentId": "authentication",
+      "locale": "en",
+      "contentLocale": "en",
+      "contentVersion": "current",
+      "versionScope": "site",
+      "alternates": [
+        {
+          "locale": "en",
+          "contentVersion": "current",
+          "url": "https://merioneeason.github.io/wakapi-api-docs/authentication.html",
+          "markdown": "https://merioneeason.github.io/wakapi-api-docs/authentication.md"
+        }
+      ]
+    },
+    {
+      "id": "heartbeats.md",
+      "kind": "page",
+      "title": "Sending heartbeats",
+      "description": "A worked example of pushing a coding heartbeat to Wakapi.",
+      "tab": "",
+      "url": "https://merioneeason.github.io/wakapi-api-docs/heartbeats.html",
+      "markdown": "https://merioneeason.github.io/wakapi-api-docs/heartbeats.md",
+      "file": "heartbeats.md",
+      "searchText": "# sending heartbeats {#sending-heartbeats} a heartbeat records one coding event: file you edited, in project, at time. send it with `post /heartbeat`: ```bash curl -x post https://your-wakapi-instance/api/heartbeat \\ -h \"authorization: basic <base64-of-your-api-key>\" \"content-type: application/json\" -d '{ \"entity\": \"/home/user/projects/my-app/src/main.go\", \"type\": \"file\", \"category\": \"coding\", \"time\": 1794216000, \"project\": \"my-app\", \"branch\": \"main\", \"language\": \"go\", \"is_write\": true }' ``` notes: - `entity` is the path, `type` usually `file`, `category` `coding`, and `time` unix timestamp. to many once, use /heartbeats` json array of same objects. wakatime-compatible clients can point `/compat/wakatime/v1/users/{user}/heartbeats` endpoints instead — payload shape, paths. native `/heartbeat` compat overlap; prefer for new integrations only when an existing wakatime client needs them. check result `get /summary` or /users/{user}/statusbar/today`.",
+      "documentId": "heartbeats",
+      "locale": "en",
+      "contentLocale": "en",
+      "contentVersion": "current",
+      "versionScope": "site",
+      "alternates": [
+        {
+          "locale": "en",
+          "contentVersion": "current",
+          "url": "https://merioneeason.github.io/wakapi-api-docs/heartbeats.html",
+          "markdown": "https://merioneeason.github.io/wakapi-api-docs/heartbeats.md"
+        }
+      ]
+    },
+    {
+      "id": "api.md",
+      "kind": "page",
+      "title": "Wakapi API",
+      "description": "REST API to interact with Wakapi",
+      "tab": "api",
+      "url": "https://merioneeason.github.io/wakapi-api-docs/api.html",
+      "markdown": "https://merioneeason.github.io/wakapi-api-docs/api.md",
+      "file": "api.md",
+      "searchText": "wakapi api rest to interact with [wakapi](https://wakapi.dev) ## authentication set header `authorization` your key encoded as base64 and prefixed `basic` **example:** `basic ody2ndhknzqtmtljns00ntjilwjhmdetzmizzwm3mgq0yzjmcg==` / badges wakatime heartbeat misc diagnostics summary apikeyauth authorization",
+      "documentId": "introduction",
+      "locale": "en",
+      "contentLocale": "en",
+      "contentVersion": "current",
+      "versionScope": "site",
+      "alternates": [
+        {
+          "locale": "en",
+          "contentVersion": "current",
+          "url": "https://merioneeason.github.io/wakapi-api-docs/api.html",
+          "markdown": "https://merioneeason.github.io/wakapi-api-docs/api.md"
+        }
+      ]
+    },
+    {
+      "id": "api/operations/operation-compat-shields-v1-user-interval-filter-get.md",
+      "kind": "operation",
+      "title": "Get badge data",
+      "description": "Retrieve total time for a given entity (e.g. a project) within a given range (e.g. one week) in a format compatible with Shields.io. Requires public data access to be allowed.",
+      "tab": "api",
+      "url": "https://merioneeason.github.io/wakapi-api-docs/api.html#operation-compat-shields-v1-user-interval-filter-get",
+      "markdown": "https://merioneeason.github.io/wakapi-api-docs/api/operations/operation-compat-shields-v1-user-interval-filter-get.md",
+      "file": "api/operations/operation-compat-shields-v1-user-interval-filter-get.md",
+      "searchText": "get-badge get badge data retrieve total time for a given entity (e.g. project) within range one week) in format compatible with [shields.io](https://shields.io/endpoint). requires public access to be allowed. /compat/shields/v1/{user}/{interval}/{filter} badges user id fetch interval aggregate today yesterday week month year 7_days last_7_days 30_days last_30_days 6_months last_6_months 12_months last_12_months last_year any all_time filter apply 'project:wakapi' or 'language:go') 200 ok v1.badgedata color label message schemaversion",
+      "documentId": "GET /compat/shields/v1/{user}/{interval}/{filter}",
+      "locale": "en",
+      "contentLocale": "en",
+      "contentVersion": "current",
+      "versionScope": "site",
+      "alternates": [
+        {
+          "locale": "en",
+          "contentVersion": "current",
+          "url": "https://merioneeason.github.io/wakapi-api-docs/api.html#operation-compat-shields-v1-user-interval-filter-get",
+          "markdown": "https://merioneeason.github.io/wakapi-api-docs/api/operations/operation-compat-shields-v1-user-interval-filter-get.md"
+        }
+      ]
+    },
+    {
+      "id": "api/operations/operation-compat-wakatime-v1-leaders-get.md",
+      "kind": "operation",
+      "title": "List of users ranked by coding activity in descending order.",
+      "description": "Mimics https://wakatime.com/developers#leaders",
+      "tab": "api",
+      "url": "https://merioneeason.github.io/wakapi-api-docs/api.html#operation-compat-wakatime-v1-leaders-get",
+      "markdown": "https://merioneeason.github.io/wakapi-api-docs/api/operations/operation-compat-wakatime-v1-leaders-get.md",
+      "file": "api/operations/operation-compat-wakatime-v1-leaders-get.md",
+      "searchText": "get-wakatime-leaders list of users ranked by coding activity in descending order. mimics https://wakatime.com/developers#leaders get /compat/wakatime/v1/leaders wakatime 200 ok v1.leadersviewmodel current_user v1.leaderscurrentuser page rank user v1.user created_at display_name email full_name id is_email_confirmed is_email_public last_heartbeat_at last_plugin_name last_project modified_at photo timezone username website data v1.leadersentry running_total v1.leadersrunningtotal daily_average human_readable_daily_average human_readable_total languages v1.leaderslanguage name total_seconds language range v1.leadersrange end_date end_text start_date start_text text total_pages",
+      "documentId": "GET /compat/wakatime/v1/leaders",
+      "locale": "en",
+      "contentLocale": "en",
+      "contentVersion": "current",
+      "versionScope": "site",
+      "alternates": [
+        {
+          "locale": "en",
+          "contentVersion": "current",
+          "url": "https://merioneeason.github.io/wakapi-api-docs/api.html#operation-compat-wakatime-v1-leaders-get",
+          "markdown": "https://merioneeason.github.io/wakapi-api-docs/api/operations/operation-compat-wakatime-v1-leaders-get.md"
+        }
+      ]
+    },
+    {
+      "id": "api/operations/operation-compat-wakatime-v1-users-user-get.md",
+      "kind": "operation",
+      "title": "Retrieve the given user",
+      "description": "Mimics https://wakatime.com/developers#users",
+      "tab": "api",
+      "url": "https://merioneeason.github.io/wakapi-api-docs/api.html#operation-compat-wakatime-v1-users-user-get",
+      "markdown": "https://merioneeason.github.io/wakapi-api-docs/api/operations/operation-compat-wakatime-v1-users-user-get.md",
+      "file": "api/operations/operation-compat-wakatime-v1-users-user-get.md",
+      "searchText": "get-wakatime-user retrieve the given user mimics https://wakatime.com/developers#users get /compat/wakatime/v1/users/{user} wakatime id to fetch (or 'current') 200 ok v1.userviewmodel data v1.user created_at display_name email full_name is_email_confirmed is_email_public last_heartbeat_at last_plugin_name last_project modified_at photo timezone username website",
+      "documentId": "GET /compat/wakatime/v1/users/{user}",
+      "locale": "en",
+      "contentLocale": "en",
+      "contentVersion": "current",
+      "versionScope": "site",
+      "alternates": [
+        {
+          "locale": "en",
+          "contentVersion": "current",
+          "url": "https://merioneeason.github.io/wakapi-api-docs/api.html#operation-compat-wakatime-v1-users-user-get",
+          "markdown": "https://merioneeason.github.io/wakapi-api-docs/api/operations/operation-compat-wakatime-v1-users-user-get.md"
+        }
+      ]
+    },
+    {
+      "id": "api/operations/operation-compat-wakatime-v1-users-user-all-time-since-today-get.md",
+      "kind": "operation",
+      "title": "Retrieve summary for all time",
+      "description": "Mimics https://wakatime.com/developers#all_time_since_today",
+      "tab": "api",
+      "url": "https://merioneeason.github.io/wakapi-api-docs/api.html#operation-compat-wakatime-v1-users-user-all-time-since-today-get",
+      "markdown": "https://merioneeason.github.io/wakapi-api-docs/api/operations/operation-compat-wakatime-v1-users-user-all-time-since-today-get.md",
+      "file": "api/operations/operation-compat-wakatime-v1-users-user-all-time-since-today-get.md",
+      "searchText": "get-all-time retrieve summary for all time mimics https://wakatime.com/developers#all_time_since_today get /compat/wakatime/v1/users/{user}/all_time_since_today wakatime user id to fetch data (or 'current') 200 ok v1.alltimeviewmodel v1.alltimedata is_up_to_date true if the stats are up date; when false, a 202 response code is returned and will be refreshed soon> range v1.alltimerange end end_date start start_date timezone text total logged since account created as human readable string> total_seconds number of seconds",
+      "documentId": "GET /compat/wakatime/v1/users/{user}/all_time_since_today",
+      "locale": "en",
+      "contentLocale": "en",
+      "contentVersion": "current",
+      "versionScope": "site",
+      "alternates": [
+        {
+          "locale": "en",
+          "contentVersion": "current",
+          "url": "https://merioneeason.github.io/wakapi-api-docs/api.html#operation-compat-wakatime-v1-users-user-all-time-since-today-get",
+          "markdown": "https://merioneeason.github.io/wakapi-api-docs/api/operations/operation-compat-wakatime-v1-users-user-all-time-since-today-get.md"
+        }
+      ]
+    },
+    {
+      "id": "api/operations/operation-compat-wakatime-v1-users-user-heartbeats-get.md",
+      "kind": "operation",
+      "title": "Get heartbeats of user for specified date",
+      "description": "GET /compat/wakatime/v1/users/{user}/heartbeats: returns v1.HeartbeatsResult.",
+      "tab": "api",
+      "url": "https://merioneeason.github.io/wakapi-api-docs/api.html#operation-compat-wakatime-v1-users-user-heartbeats-get",
+      "markdown": "https://merioneeason.github.io/wakapi-api-docs/api/operations/operation-compat-wakatime-v1-users-user-heartbeats-get.md",
+      "file": "api/operations/operation-compat-wakatime-v1-users-user-heartbeats-get.md",
+      "searchText": "get-heartbeats get heartbeats of user for specified date /compat/wakatime/v1/users/{user}/heartbeats heartbeat username (or current) 200 ok v1.heartbeatsresult data v1.heartbeatentry ai_input_tokens ai_line_changes ai_output_tokens ai_prompt_length ai_session branch category created_at cursorpos entity human_line_changes id is_write language line_additions line_deletions lineno lines machine_name_id project time type user_agent_id user_id end start timezone 400 bad",
+      "documentId": "GET /compat/wakatime/v1/users/{user}/heartbeats",
+      "locale": "en",
+      "contentLocale": "en",
+      "contentVersion": "current",
+      "versionScope": "site",
+      "alternates": [
+        {
+          "locale": "en",
+          "contentVersion": "current",
+          "url": "https://merioneeason.github.io/wakapi-api-docs/api.html#operation-compat-wakatime-v1-users-user-heartbeats-get",
+          "markdown": "https://merioneeason.github.io/wakapi-api-docs/api/operations/operation-compat-wakatime-v1-users-user-heartbeats-get.md"
+        }
+      ]
+    },
+    {
+      "id": "api/operations/operation-compat-wakatime-v1-users-user-heartbeats-post.md",
+      "kind": "operation",
+      "title": "Push a new heartbeat",
+      "description": "POST /compat/wakatime/v1/users/{user}/heartbeats: takes models.Heartbeat.",
+      "tab": "api",
+      "url": "https://merioneeason.github.io/wakapi-api-docs/api.html#operation-compat-wakatime-v1-users-user-heartbeats-post",
+      "markdown": "https://merioneeason.github.io/wakapi-api-docs/api/operations/operation-compat-wakatime-v1-users-user-heartbeats-post.md",
+      "file": "api/operations/operation-compat-wakatime-v1-users-user-heartbeats-post.md",
+      "searchText": "post-heartbeat-3 push a new heartbeat post /compat/wakatime/v1/users/{user}/heartbeats user username (or current) single models.heartbeat ai_input_tokens ai_line_changes ai_output_tokens ai_prompt_length ai_session branch category created_at https://gorm.io/docs/conventions.html#createdat cursorpos editor ignored because might be parsed differently by wakatime entity human_line_changes is_write language line_additions line_deletions lineno lines machine api doesn't return machines currently operating_system os project project_root_count time note: on sqlite, table will have an additional column `time_real`, introduced \"manually\" migration 20260111 see https://github.com/muety/wakapi/issues/882 for details type user_agent 201 created",
+      "documentId": "POST /compat/wakatime/v1/users/{user}/heartbeats",
+      "locale": "en",
+      "contentLocale": "en",
+      "contentVersion": "current",
+      "versionScope": "site",
+      "alternates": [
+        {
+          "locale": "en",
+          "contentVersion": "current",
+          "url": "https://merioneeason.github.io/wakapi-api-docs/api.html#operation-compat-wakatime-v1-users-user-heartbeats-post",
+          "markdown": "https://merioneeason.github.io/wakapi-api-docs/api/operations/operation-compat-wakatime-v1-users-user-heartbeats-post.md"
+        }
+      ]
+    },
+    {
+      "id": "api/operations/operation-compat-wakatime-v1-users-user-heartbeats-bulk-post.md",
+      "kind": "operation",
+      "title": "Push new heartbeats",
+      "description": "POST /compat/wakatime/v1/users/{user}/heartbeats.bulk: takes a list of models.Heartbeat.",
+      "tab": "api",
+      "url": "https://merioneeason.github.io/wakapi-api-docs/api.html#operation-compat-wakatime-v1-users-user-heartbeats-bulk-post",
+      "markdown": "https://merioneeason.github.io/wakapi-api-docs/api/operations/operation-compat-wakatime-v1-users-user-heartbeats-bulk-post.md",
+      "file": "api/operations/operation-compat-wakatime-v1-users-user-heartbeats-bulk-post.md",
+      "searchText": "post-heartbeat-7 push new heartbeats post /compat/wakatime/v1/users/{user}/heartbeats.bulk heartbeat user username (or current) multiple models.heartbeat ai_input_tokens ai_line_changes ai_output_tokens ai_prompt_length ai_session branch category created_at https://gorm.io/docs/conventions.html#createdat cursorpos editor ignored because might be parsed differently by wakatime entity human_line_changes is_write language line_additions line_deletions lineno lines machine api doesn't return machines currently operating_system os project project_root_count time note: on sqlite, table will have an additional column `time_real`, introduced \"manually\" migration 20260111 see https://github.com/muety/wakapi/issues/882 for details type user_agent 201 created",
+      "documentId": "POST /compat/wakatime/v1/users/{user}/heartbeats.bulk",
+      "locale": "en",
+      "contentLocale": "en",
+      "contentVersion": "current",
+      "versionScope": "site",
+      "alternates": [
+        {
+          "locale": "en",
+          "contentVersion": "current",
+          "url": "https://merioneeason.github.io/wakapi-api-docs/api.html#operation-compat-wakatime-v1-users-user-heartbeats-bulk-post",
+          "markdown": "https://merioneeason.github.io/wakapi-api-docs/api/operations/operation-compat-wakatime-v1-users-user-heartbeats-bulk-post.md"
+        }
+      ]
+    },
+    {
+      "id": "api/operations/operation-compat-wakatime-v1-users-user-projects-get.md",
+      "kind": "operation",
+      "title": "Retrieve and filter the user's projects",
+      "description": "Mimics https://wakatime.com/developers#projects",
+      "tab": "api",
+      "url": "https://merioneeason.github.io/wakapi-api-docs/api.html#operation-compat-wakatime-v1-users-user-projects-get",
+      "markdown": "https://merioneeason.github.io/wakapi-api-docs/api/operations/operation-compat-wakatime-v1-users-user-projects-get.md",
+      "file": "api/operations/operation-compat-wakatime-v1-users-user-projects-get.md",
+      "searchText": "get-wakatime-projects retrieve and filter the user's projects mimics https://wakatime.com/developers#projects get /compat/wakatime/v1/users/{user}/projects wakatime user id to fetch data for (or 'current') q query by 200 ok v1.projectsviewmodel v1.project created_at human_readable_last_heartbeat_at last_heartbeat_at name urlencoded_name",
+      "documentId": "GET /compat/wakatime/v1/users/{user}/projects",
+      "locale": "en",
+      "contentLocale": "en",
+      "contentVersion": "current",
+      "versionScope": "site",
+      "alternates": [
+        {
+          "locale": "en",
+          "contentVersion": "current",
+          "url": "https://merioneeason.github.io/wakapi-api-docs/api.html#operation-compat-wakatime-v1-users-user-projects-get",
+          "markdown": "https://merioneeason.github.io/wakapi-api-docs/api/operations/operation-compat-wakatime-v1-users-user-projects-get.md"
+        }
+      ]
+    },
+    {
+      "id": "api/operations/operation-compat-wakatime-v1-users-user-projects-id-get.md",
+      "kind": "operation",
+      "title": "Retrieve a single project",
+      "description": "Mimics undocumented endpoint related to https://wakatime.com/developers#projects",
+      "tab": "api",
+      "url": "https://merioneeason.github.io/wakapi-api-docs/api.html#operation-compat-wakatime-v1-users-user-projects-id-get",
+      "markdown": "https://merioneeason.github.io/wakapi-api-docs/api/operations/operation-compat-wakatime-v1-users-user-projects-id-get.md",
+      "file": "api/operations/operation-compat-wakatime-v1-users-user-projects-id-get.md",
+      "searchText": "get-wakatime-project retrieve a single project mimics undocumented endpoint related to https://wakatime.com/developers#projects get /compat/wakatime/v1/users/{user}/projects/{id} wakatime user id fetch data for (or 'current') 200 ok v1.projectviewmodel v1.project created_at human_readable_last_heartbeat_at last_heartbeat_at name urlencoded_name",
+      "documentId": "GET /compat/wakatime/v1/users/{user}/projects/{id}",
+      "locale": "en",
+      "contentLocale": "en",
+      "contentVersion": "current",
+      "versionScope": "site",
+      "alternates": [
+        {
+          "locale": "en",
+          "contentVersion": "current",
+          "url": "https://merioneeason.github.io/wakapi-api-docs/api.html#operation-compat-wakatime-v1-users-user-projects-id-get",
+          "markdown": "https://merioneeason.github.io/wakapi-api-docs/api/operations/operation-compat-wakatime-v1-users-user-projects-id-get.md"
+        }
+      ]
+    },
+    {
+      "id": "api/operations/operation-compat-wakatime-v1-users-user-stats-range-get.md",
+      "kind": "operation",
+      "title": "Retrieve statistics for a given user",
+      "description": "Mimics https://wakatime.com/developers#stats",
+      "tab": "api",
+      "url": "https://merioneeason.github.io/wakapi-api-docs/api.html#operation-compat-wakatime-v1-users-user-stats-range-get",
+      "markdown": "https://merioneeason.github.io/wakapi-api-docs/api/operations/operation-compat-wakatime-v1-users-user-stats-range-get.md",
+      "file": "api/operations/operation-compat-wakatime-v1-users-user-stats-range-get.md",
+      "searchText": "get-wakatimes-tats retrieve statistics for a given user mimics https://wakatime.com/developers#stats get /compat/wakatime/v1/users/{user}/stats/{range} wakatime id to fetch data (or 'current') range interval identifier today yesterday week month year 7_days last_7_days 30_days last_30_days 6_months last_6_months 12_months last_12_months last_year any all_time project filter by language editor operating_system os machine label 200 ok v1.statsviewmodel v1.statsdata branches v1.summariesentry digital hours minutes name percent seconds text total_seconds categories daily_average days_including_holidays editors end human_readable_daily_average human_readable_range human_readable_total is_coding_activity_visible is_other_usage_visible languages machines operating_systems projects start status timezone user_id username",
+      "documentId": "GET /compat/wakatime/v1/users/{user}/stats/{range}",
+      "locale": "en",
+      "contentLocale": "en",
+      "contentVersion": "current",
+      "versionScope": "site",
+      "alternates": [
+        {
+          "locale": "en",
+          "contentVersion": "current",
+          "url": "https://merioneeason.github.io/wakapi-api-docs/api.html#operation-compat-wakatime-v1-users-user-stats-range-get",
+          "markdown": "https://merioneeason.github.io/wakapi-api-docs/api/operations/operation-compat-wakatime-v1-users-user-stats-range-get.md"
+        }
+      ]
+    },
+    {
+      "id": "api/operations/operation-compat-wakatime-v1-users-user-summaries-get.md",
+      "kind": "operation",
+      "title": "Retrieve WakaTime-compatible summaries",
+      "description": "Mimics https://wakatime.com/developers#summaries.",
+      "tab": "api",
+      "url": "https://merioneeason.github.io/wakapi-api-docs/api.html#operation-compat-wakatime-v1-users-user-summaries-get",
+      "markdown": "https://merioneeason.github.io/wakapi-api-docs/api/operations/operation-compat-wakatime-v1-users-user-summaries-get.md",
+      "file": "api/operations/operation-compat-wakatime-v1-users-user-summaries-get.md",
+      "searchText": "get-wakatime-summaries retrieve wakatime-compatible summaries mimics https://wakatime.com/developers#summaries. get /compat/wakatime/v1/users/{user}/summaries wakatime user id to fetch data for (or 'current') range interval identifier today yesterday week month year 7_days last_7_days 30_days last_30_days 6_months last_6_months 12_months last_12_months last_year any all_time start date (e.g. '2021-02-07') end '2021-02-08') project filter by language editor operating_system os machine label 200 ok v1.summariesviewmodel cumulative_total v1.summariescumulativetotal decimal digital seconds text daily_average v1.summariesdailyaverage days_including_holidays days_minus_holidays holidays seconds_including_other_language text_including_other_language v1.summariesdata branches v1.summariesentry hours minutes name percent total_seconds categories dependencies editors entities grand_total v1.summariesgrandtotal languages machines operating_systems projects v1.summariesrange timezone",
+      "documentId": "GET /compat/wakatime/v1/users/{user}/summaries",
+      "locale": "en",
+      "contentLocale": "en",
+      "contentVersion": "current",
+      "versionScope": "site",
+      "alternates": [
+        {
+          "locale": "en",
+          "contentVersion": "current",
+          "url": "https://merioneeason.github.io/wakapi-api-docs/api.html#operation-compat-wakatime-v1-users-user-summaries-get",
+          "markdown": "https://merioneeason.github.io/wakapi-api-docs/api/operations/operation-compat-wakatime-v1-users-user-summaries-get.md"
+        }
+      ]
+    },
+    {
+      "id": "api/operations/operation-compat-wakatime-v1-users-user-user-agents-get.md",
+      "kind": "operation",
+      "title": "List of unique user agents for given user.",
+      "description": "Mimics https://wakatime.com/developers#user_agents",
+      "tab": "api",
+      "url": "https://merioneeason.github.io/wakapi-api-docs/api.html#operation-compat-wakatime-v1-users-user-user-agents-get",
+      "markdown": "https://merioneeason.github.io/wakapi-api-docs/api/operations/operation-compat-wakatime-v1-users-user-user-agents-get.md",
+      "file": "api/operations/operation-compat-wakatime-v1-users-user-user-agents-get.md",
+      "searchText": "get-wakatime-useragents list of unique user agents for given user. mimics https://wakatime.com/developers#user_agents get /compat/wakatime/v1/users/{user}/user_agents wakatime id to fetch data (or 'current') 200 ok v1.useragentsviewmodel v1.useragententry editor first_seen is_browser_extension currently not implemented is_desktop_app last_seen os value version total_pages",
+      "documentId": "GET /compat/wakatime/v1/users/{user}/user_agents",
+      "locale": "en",
+      "contentLocale": "en",
+      "contentVersion": "current",
+      "versionScope": "site",
+      "alternates": [
+        {
+          "locale": "en",
+          "contentVersion": "current",
+          "url": "https://merioneeason.github.io/wakapi-api-docs/api.html#operation-compat-wakatime-v1-users-user-user-agents-get",
+          "markdown": "https://merioneeason.github.io/wakapi-api-docs/api/operations/operation-compat-wakatime-v1-users-user-user-agents-get.md"
+        }
+      ]
+    },
+    {
+      "id": "api/operations/operation-health-get.md",
+      "kind": "operation",
+      "title": "Check the application's health status",
+      "description": "GET /health.",
+      "tab": "api",
+      "url": "https://merioneeason.github.io/wakapi-api-docs/api.html#operation-health-get",
+      "markdown": "https://merioneeason.github.io/wakapi-api-docs/api/operations/operation-health-get.md",
+      "file": "api/operations/operation-health-get.md",
+      "searchText": "get-health check the application's health status get /health misc 200 ok",
+      "documentId": "GET /health",
+      "locale": "en",
+      "contentLocale": "en",
+      "contentVersion": "current",
+      "versionScope": "site",
+      "alternates": [
+        {
+          "locale": "en",
+          "contentVersion": "current",
+          "url": "https://merioneeason.github.io/wakapi-api-docs/api.html#operation-health-get",
+          "markdown": "https://merioneeason.github.io/wakapi-api-docs/api/operations/operation-health-get.md"
+        }
+      ]
+    },
+    {
+      "id": "api/operations/operation-heartbeat-post.md",
+      "kind": "operation",
+      "title": "Push a new heartbeat",
+      "description": "POST /heartbeat: takes models.Heartbeat.",
+      "tab": "api",
+      "url": "https://merioneeason.github.io/wakapi-api-docs/api.html#operation-heartbeat-post",
+      "markdown": "https://merioneeason.github.io/wakapi-api-docs/api/operations/operation-heartbeat-post.md",
+      "file": "api/operations/operation-heartbeat-post.md",
+      "searchText": "post-heartbeat push a new heartbeat post /heartbeat single models.heartbeat ai_input_tokens ai_line_changes ai_output_tokens ai_prompt_length ai_session branch category created_at https://gorm.io/docs/conventions.html#createdat cursorpos editor ignored because might be parsed differently by wakatime entity human_line_changes is_write language line_additions line_deletions lineno lines machine api doesn't return machines currently operating_system os project project_root_count time note: on sqlite, table will have an additional column `time_real`, introduced \"manually\" migration 20260111 see https://github.com/muety/wakapi/issues/882 for details type user_agent 201 created",
+      "documentId": "POST /heartbeat",
+      "locale": "en",
+      "contentLocale": "en",
+      "contentVersion": "current",
+      "versionScope": "site",
+      "alternates": [
+        {
+          "locale": "en",
+          "contentVersion": "current",
+          "url": "https://merioneeason.github.io/wakapi-api-docs/api.html#operation-heartbeat-post",
+          "markdown": "https://merioneeason.github.io/wakapi-api-docs/api/operations/operation-heartbeat-post.md"
+        }
+      ]
+    },
+    {
+      "id": "api/operations/operation-heartbeats-post.md",
+      "kind": "operation",
+      "title": "Push new heartbeats",
+      "description": "POST /heartbeats: takes a list of models.Heartbeat.",
+      "tab": "api",
+      "url": "https://merioneeason.github.io/wakapi-api-docs/api.html#operation-heartbeats-post",
+      "markdown": "https://merioneeason.github.io/wakapi-api-docs/api/operations/operation-heartbeats-post.md",
+      "file": "api/operations/operation-heartbeats-post.md",
+      "searchText": "post-heartbeat-5 push new heartbeats post /heartbeats heartbeat multiple models.heartbeat ai_input_tokens ai_line_changes ai_output_tokens ai_prompt_length ai_session branch category created_at https://gorm.io/docs/conventions.html#createdat cursorpos editor ignored because might be parsed differently by wakatime entity human_line_changes is_write language line_additions line_deletions lineno lines machine api doesn't return machines currently operating_system os project project_root_count time note: on sqlite, table will have an additional column `time_real`, introduced \"manually\" migration 20260111 see https://github.com/muety/wakapi/issues/882 for details type user_agent 201 created",
+      "documentId": "POST /heartbeats",
+      "locale": "en",
+      "contentLocale": "en",
+      "contentVersion": "current",
+      "versionScope": "site",
+      "alternates": [
+        {
+          "locale": "en",
+          "contentVersion": "current",
+          "url": "https://merioneeason.github.io/wakapi-api-docs/api.html#operation-heartbeats-post",
+          "markdown": "https://merioneeason.github.io/wakapi-api-docs/api/operations/operation-heartbeats-post.md"
+        }
+      ]
+    },
+    {
+      "id": "api/operations/operation-plugins-errors-post.md",
+      "kind": "operation",
+      "title": "Push a new diagnostics object",
+      "description": "POST /plugins/errors: takes models.Diagnostics.",
+      "tab": "api",
+      "url": "https://merioneeason.github.io/wakapi-api-docs/api.html#operation-plugins-errors-post",
+      "markdown": "https://merioneeason.github.io/wakapi-api-docs/api/operations/operation-plugins-errors-post.md",
+      "file": "api/operations/operation-plugins-errors-post.md",
+      "searchText": "post-diagnostics push a new diagnostics object post /plugins/errors single sent by wakatime cli models.diagnostics architecture cli_version id logs platform plugin stacktrace 201 created",
+      "documentId": "POST /plugins/errors",
+      "locale": "en",
+      "contentLocale": "en",
+      "contentVersion": "current",
+      "versionScope": "site",
+      "alternates": [
+        {
+          "locale": "en",
+          "contentVersion": "current",
+          "url": "https://merioneeason.github.io/wakapi-api-docs/api.html#operation-plugins-errors-post",
+          "markdown": "https://merioneeason.github.io/wakapi-api-docs/api/operations/operation-plugins-errors-post.md"
+        }
+      ]
+    },
+    {
+      "id": "api/operations/operation-summary-get.md",
+      "kind": "operation",
+      "title": "Retrieve a summary",
+      "description": "GET /summary: returns models.Summary.",
+      "tab": "api",
+      "url": "https://merioneeason.github.io/wakapi-api-docs/api.html#operation-summary-get",
+      "markdown": "https://merioneeason.github.io/wakapi-api-docs/api/operations/operation-summary-get.md",
+      "file": "api/operations/operation-summary-get.md",
+      "searchText": "get-summary retrieve a summary get /summary interval identifier today yesterday week month year 7_days last_7_days 30_days last_30_days 6_months last_6_months 12_months last_12_months last_year any all_time from start date (e.g. '2021-02-07') to end '2021-02-08') recompute whether the raw heartbeat or use cache project filter by language editor operating_system os machine label 200 ok models.summary branches are not persisted, but calculated at runtime in case is applied models.summaryitem key total categories editors entities filled gorm if set, see https://gorm.io/docs/conventions.html#createdat labels runtime, i.e. when retrieved languages machines operating_systems projects previously, all following properties created cascade foreign constraint on summary_items table back this resulting 5 identical constraints table. problem for postgresql, mysql and sqlite, mssql (not supported anymore though), which complains about circular cascades update/delete between these two tables. of identical, so only one enough. will create every property referencing other structs, even no specified tags. explicitly set gorm:\"-\" avoid creating duplicate user_id",
+      "documentId": "GET /summary",
+      "locale": "en",
+      "contentLocale": "en",
+      "contentVersion": "current",
+      "versionScope": "site",
+      "alternates": [
+        {
+          "locale": "en",
+          "contentVersion": "current",
+          "url": "https://merioneeason.github.io/wakapi-api-docs/api.html#operation-summary-get",
+          "markdown": "https://merioneeason.github.io/wakapi-api-docs/api/operations/operation-summary-get.md"
+        }
+      ]
+    },
+    {
+      "id": "api/operations/operation-users-user-heartbeats-post.md",
+      "kind": "operation",
+      "title": "Push a new heartbeat",
+      "description": "POST /users/{user}/heartbeats: takes models.Heartbeat.",
+      "tab": "api",
+      "url": "https://merioneeason.github.io/wakapi-api-docs/api.html#operation-users-user-heartbeats-post",
+      "markdown": "https://merioneeason.github.io/wakapi-api-docs/api/operations/operation-users-user-heartbeats-post.md",
+      "file": "api/operations/operation-users-user-heartbeats-post.md",
+      "searchText": "post-heartbeat-4 push a new heartbeat post /users/{user}/heartbeats user username (or current) single models.heartbeat ai_input_tokens ai_line_changes ai_output_tokens ai_prompt_length ai_session branch category created_at https://gorm.io/docs/conventions.html#createdat cursorpos editor ignored because might be parsed differently by wakatime entity human_line_changes is_write language line_additions line_deletions lineno lines machine api doesn't return machines currently operating_system os project project_root_count time note: on sqlite, table will have an additional column `time_real`, introduced \"manually\" migration 20260111 see https://github.com/muety/wakapi/issues/882 for details type user_agent 201 created",
+      "documentId": "POST /users/{user}/heartbeats",
+      "locale": "en",
+      "contentLocale": "en",
+      "contentVersion": "current",
+      "versionScope": "site",
+      "alternates": [
+        {
+          "locale": "en",
+          "contentVersion": "current",
+          "url": "https://merioneeason.github.io/wakapi-api-docs/api.html#operation-users-user-heartbeats-post",
+          "markdown": "https://merioneeason.github.io/wakapi-api-docs/api/operations/operation-users-user-heartbeats-post.md"
+        }
+      ]
+    },
+    {
+      "id": "api/operations/operation-users-user-heartbeats-bulk-post.md",
+      "kind": "operation",
+      "title": "Push new heartbeats",
+      "description": "POST /users/{user}/heartbeats.bulk: takes a list of models.Heartbeat.",
+      "tab": "api",
+      "url": "https://merioneeason.github.io/wakapi-api-docs/api.html#operation-users-user-heartbeats-bulk-post",
+      "markdown": "https://merioneeason.github.io/wakapi-api-docs/api/operations/operation-users-user-heartbeats-bulk-post.md",
+      "file": "api/operations/operation-users-user-heartbeats-bulk-post.md",
+      "searchText": "post-heartbeat-8 push new heartbeats post /users/{user}/heartbeats.bulk heartbeat user username (or current) multiple models.heartbeat ai_input_tokens ai_line_changes ai_output_tokens ai_prompt_length ai_session branch category created_at https://gorm.io/docs/conventions.html#createdat cursorpos editor ignored because might be parsed differently by wakatime entity human_line_changes is_write language line_additions line_deletions lineno lines machine api doesn't return machines currently operating_system os project project_root_count time note: on sqlite, table will have an additional column `time_real`, introduced \"manually\" migration 20260111 see https://github.com/muety/wakapi/issues/882 for details type user_agent 201 created",
+      "documentId": "POST /users/{user}/heartbeats.bulk",
+      "locale": "en",
+      "contentLocale": "en",
+      "contentVersion": "current",
+      "versionScope": "site",
+      "alternates": [
+        {
+          "locale": "en",
+          "contentVersion": "current",
+          "url": "https://merioneeason.github.io/wakapi-api-docs/api.html#operation-users-user-heartbeats-bulk-post",
+          "markdown": "https://merioneeason.github.io/wakapi-api-docs/api/operations/operation-users-user-heartbeats-bulk-post.md"
+        }
+      ]
+    },
+    {
+      "id": "api/operations/operation-users-user-statusbar-today-get.md",
+      "kind": "operation",
+      "title": "Retrieve summary for statusbar",
+      "description": "Mimics https://wakatime.com/api/v1/users/current/statusbar/today. Have no official documentation",
+      "tab": "api",
+      "url": "https://merioneeason.github.io/wakapi-api-docs/api.html#operation-users-user-statusbar-today-get",
+      "markdown": "https://merioneeason.github.io/wakapi-api-docs/api/operations/operation-users-user-statusbar-today-get.md",
+      "file": "api/operations/operation-users-user-statusbar-today-get.md",
+      "searchText": "statusbar retrieve summary for mimics https://wakatime.com/api/v1/users/current/statusbar/today. have no official documentation get /users/{user}/statusbar/today wakatime user id to fetch data (or 'current') 200 ok v1.statusbarviewmodel cached_at v1.summariesdata branches v1.summariesentry digital hours minutes name percent seconds text total_seconds categories dependencies editors entities grand_total v1.summariesgrandtotal languages machines operating_systems projects range v1.summariesrange date end start timezone",
+      "documentId": "GET /users/{user}/statusbar/today",
+      "locale": "en",
+      "contentLocale": "en",
+      "contentVersion": "current",
+      "versionScope": "site",
+      "alternates": [
+        {
+          "locale": "en",
+          "contentVersion": "current",
+          "url": "https://merioneeason.github.io/wakapi-api-docs/api.html#operation-users-user-statusbar-today-get",
+          "markdown": "https://merioneeason.github.io/wakapi-api-docs/api/operations/operation-users-user-statusbar-today-get.md"
+        }
+      ]
+    },
+    {
+      "id": "api/operations/operation-v1-users-user-heartbeats-post.md",
+      "kind": "operation",
+      "title": "Push a new heartbeat",
+      "description": "POST /v1/users/{user}/heartbeats: takes models.Heartbeat.",
+      "tab": "api",
+      "url": "https://merioneeason.github.io/wakapi-api-docs/api.html#operation-v1-users-user-heartbeats-post",
+      "markdown": "https://merioneeason.github.io/wakapi-api-docs/api/operations/operation-v1-users-user-heartbeats-post.md",
+      "file": "api/operations/operation-v1-users-user-heartbeats-post.md",
+      "searchText": "post-heartbeat-2 push a new heartbeat post /v1/users/{user}/heartbeats user username (or current) single models.heartbeat ai_input_tokens ai_line_changes ai_output_tokens ai_prompt_length ai_session branch category created_at https://gorm.io/docs/conventions.html#createdat cursorpos editor ignored because might be parsed differently by wakatime entity human_line_changes is_write language line_additions line_deletions lineno lines machine api doesn't return machines currently operating_system os project project_root_count time note: on sqlite, table will have an additional column `time_real`, introduced \"manually\" migration 20260111 see https://github.com/muety/wakapi/issues/882 for details type user_agent 201 created",
+      "documentId": "POST /v1/users/{user}/heartbeats",
+      "locale": "en",
+      "contentLocale": "en",
+      "contentVersion": "current",
+      "versionScope": "site",
+      "alternates": [
+        {
+          "locale": "en",
+          "contentVersion": "current",
+          "url": "https://merioneeason.github.io/wakapi-api-docs/api.html#operation-v1-users-user-heartbeats-post",
+          "markdown": "https://merioneeason.github.io/wakapi-api-docs/api/operations/operation-v1-users-user-heartbeats-post.md"
+        }
+      ]
+    },
+    {
+      "id": "api/operations/operation-v1-users-user-heartbeats-bulk-post.md",
+      "kind": "operation",
+      "title": "Push new heartbeats",
+      "description": "POST /v1/users/{user}/heartbeats.bulk: takes a list of models.Heartbeat.",
+      "tab": "api",
+      "url": "https://merioneeason.github.io/wakapi-api-docs/api.html#operation-v1-users-user-heartbeats-bulk-post",
+      "markdown": "https://merioneeason.github.io/wakapi-api-docs/api/operations/operation-v1-users-user-heartbeats-bulk-post.md",
+      "file": "api/operations/operation-v1-users-user-heartbeats-bulk-post.md",
+      "searchText": "post-heartbeat-6 push new heartbeats post /v1/users/{user}/heartbeats.bulk heartbeat user username (or current) multiple models.heartbeat ai_input_tokens ai_line_changes ai_output_tokens ai_prompt_length ai_session branch category created_at https://gorm.io/docs/conventions.html#createdat cursorpos editor ignored because might be parsed differently by wakatime entity human_line_changes is_write language line_additions line_deletions lineno lines machine api doesn't return machines currently operating_system os project project_root_count time note: on sqlite, table will have an additional column `time_real`, introduced \"manually\" migration 20260111 see https://github.com/muety/wakapi/issues/882 for details type user_agent 201 created",
+      "documentId": "POST /v1/users/{user}/heartbeats.bulk",
+      "locale": "en",
+      "contentLocale": "en",
+      "contentVersion": "current",
+      "versionScope": "site",
+      "alternates": [
+        {
+          "locale": "en",
+          "contentVersion": "current",
+          "url": "https://merioneeason.github.io/wakapi-api-docs/api.html#operation-v1-users-user-heartbeats-bulk-post",
+          "markdown": "https://merioneeason.github.io/wakapi-api-docs/api/operations/operation-v1-users-user-heartbeats-bulk-post.md"
+        }
+      ]
+    },
+    {
+      "id": "api/schemas/models-diagnostics-c10d82a8db.md",
+      "kind": "schema",
+      "title": "models.Diagnostics",
+      "description": "Fields: architecture, cli_version, id, logs, platform, plugin and stacktrace.",
+      "tab": "api",
+      "url": "https://merioneeason.github.io/wakapi-api-docs/api.html#definition-models-diagnostics",
+      "markdown": "https://merioneeason.github.io/wakapi-api-docs/api/schemas/models-diagnostics-c10d82a8db.md",
+      "file": "api/schemas/models-diagnostics-c10d82a8db.md",
+      "searchText": "models.diagnostics architecture cli_version id logs platform plugin stacktrace",
+      "documentId": "schema:models.Diagnostics",
+      "locale": "en",
+      "contentLocale": "en",
+      "contentVersion": "current",
+      "versionScope": "site",
+      "alternates": [
+        {
+          "locale": "en",
+          "contentVersion": "current",
+          "url": "https://merioneeason.github.io/wakapi-api-docs/api.html#definition-models-diagnostics",
+          "markdown": "https://merioneeason.github.io/wakapi-api-docs/api/schemas/models-diagnostics-c10d82a8db.md"
+        }
+      ]
+    },
+    {
+      "id": "api/schemas/models-heartbeat-c54ef1e7c3.md",
+      "kind": "schema",
+      "title": "models.Heartbeat",
+      "description": "Fields: ai_input_tokens, ai_line_changes, ai_output_tokens, ai_prompt_length, ai_session, branch and 19 more.",
+      "tab": "api",
+      "url": "https://merioneeason.github.io/wakapi-api-docs/api.html#definition-models-heartbeat",
+      "markdown": "https://merioneeason.github.io/wakapi-api-docs/api/schemas/models-heartbeat-c54ef1e7c3.md",
+      "file": "api/schemas/models-heartbeat-c54ef1e7c3.md",
+      "searchText": "models.heartbeat ai_input_tokens ai_line_changes ai_output_tokens ai_prompt_length ai_session branch category created_at https://gorm.io/docs/conventions.html#createdat cursorpos editor ignored because might be parsed differently by wakatime entity human_line_changes is_write language line_additions line_deletions lineno lines machine api doesn't return machines currently operating_system os project project_root_count time note: on sqlite, table will have an additional column `time_real`, introduced \"manually\" migration 20260111 see https://github.com/muety/wakapi/issues/882 for details type user_agent",
+      "documentId": "schema:models.Heartbeat",
+      "locale": "en",
+      "contentLocale": "en",
+      "contentVersion": "current",
+      "versionScope": "site",
+      "alternates": [
+        {
+          "locale": "en",
+          "contentVersion": "current",
+          "url": "https://merioneeason.github.io/wakapi-api-docs/api.html#definition-models-heartbeat",
+          "markdown": "https://merioneeason.github.io/wakapi-api-docs/api/schemas/models-heartbeat-c54ef1e7c3.md"
+        }
+      ]
+    },
+    {
+      "id": "api/schemas/models-summary-2f9cbd6874.md",
+      "kind": "schema",
+      "title": "models.Summary",
+      "description": "Fields: branches, categories, editors, entities, from, labels and 6 more.",
+      "tab": "api",
+      "url": "https://merioneeason.github.io/wakapi-api-docs/api.html#definition-models-summary",
+      "markdown": "https://merioneeason.github.io/wakapi-api-docs/api/schemas/models-summary-2f9cbd6874.md",
+      "file": "api/schemas/models-summary-2f9cbd6874.md",
+      "searchText": "models.summary branches are not persisted, but calculated at runtime in case a project filter is applied models.summaryitem key total categories editors entities from filled by gorm if set, see https://gorm.io/docs/conventions.html#createdat labels runtime, i.e. when summary retrieved languages machines operating_systems projects previously, all the following properties created cascade foreign constraint on summary_items table back to this resulting 5 identical constraints table. problem for postgresql, mysql and sqlite, mssql (not supported anymore though), which complains about circular cascades update/delete between these two tables. of identical, so only one enough. will create every property referencing other structs, even no specified tags. explicitly set gorm:\"-\" avoid creating duplicate user_id",
+      "documentId": "schema:models.Summary",
+      "locale": "en",
+      "contentLocale": "en",
+      "contentVersion": "current",
+      "versionScope": "site",
+      "alternates": [
+        {
+          "locale": "en",
+          "contentVersion": "current",
+          "url": "https://merioneeason.github.io/wakapi-api-docs/api.html#definition-models-summary",
+          "markdown": "https://merioneeason.github.io/wakapi-api-docs/api/schemas/models-summary-2f9cbd6874.md"
+        }
+      ]
+    },
+    {
+      "id": "api/schemas/models-summaryitem-dc743fb3ae.md",
+      "kind": "schema",
+      "title": "models.SummaryItem",
+      "description": "Fields: key and total.",
+      "tab": "api",
+      "url": "https://merioneeason.github.io/wakapi-api-docs/api.html#definition-models-summaryitem",
+      "markdown": "https://merioneeason.github.io/wakapi-api-docs/api/schemas/models-summaryitem-dc743fb3ae.md",
+      "file": "api/schemas/models-summaryitem-dc743fb3ae.md",
+      "searchText": "models.summaryitem key total",
+      "documentId": "schema:models.SummaryItem",
+      "locale": "en",
+      "contentLocale": "en",
+      "contentVersion": "current",
+      "versionScope": "site",
+      "alternates": [
+        {
+          "locale": "en",
+          "contentVersion": "current",
+          "url": "https://merioneeason.github.io/wakapi-api-docs/api.html#definition-models-summaryitem",
+          "markdown": "https://merioneeason.github.io/wakapi-api-docs/api/schemas/models-summaryitem-dc743fb3ae.md"
+        }
+      ]
+    },
+    {
+      "id": "api/schemas/v1-alltimedata-21c31f6b58.md",
+      "kind": "schema",
+      "title": "v1.AllTimeData",
+      "description": "Fields: is_up_to_date, range, text and total_seconds.",
+      "tab": "api",
+      "url": "https://merioneeason.github.io/wakapi-api-docs/api.html#definition-v1-alltimedata",
+      "markdown": "https://merioneeason.github.io/wakapi-api-docs/api/schemas/v1-alltimedata-21c31f6b58.md",
+      "file": "api/schemas/v1-alltimedata-21c31f6b58.md",
+      "searchText": "v1.alltimedata is_up_to_date true if the stats are up to date; when false, a 202 response code is returned and will be refreshed soon> range v1.alltimerange end end_date start start_date timezone text total time logged since account created as human readable string> total_seconds number of seconds",
+      "documentId": "schema:v1.AllTimeData",
+      "locale": "en",
+      "contentLocale": "en",
+      "contentVersion": "current",
+      "versionScope": "site",
+      "alternates": [
+        {
+          "locale": "en",
+          "contentVersion": "current",
+          "url": "https://merioneeason.github.io/wakapi-api-docs/api.html#definition-v1-alltimedata",
+          "markdown": "https://merioneeason.github.io/wakapi-api-docs/api/schemas/v1-alltimedata-21c31f6b58.md"
+        }
+      ]
+    },
+    {
+      "id": "api/schemas/v1-alltimerange-f9eae541e7.md",
+      "kind": "schema",
+      "title": "v1.AllTimeRange",
+      "description": "Fields: end, end_date, start, start_date and timezone.",
+      "tab": "api",
+      "url": "https://merioneeason.github.io/wakapi-api-docs/api.html#definition-v1-alltimerange",
+      "markdown": "https://merioneeason.github.io/wakapi-api-docs/api/schemas/v1-alltimerange-f9eae541e7.md",
+      "file": "api/schemas/v1-alltimerange-f9eae541e7.md",
+      "searchText": "v1.alltimerange end end_date start start_date timezone",
+      "documentId": "schema:v1.AllTimeRange",
+      "locale": "en",
+      "contentLocale": "en",
+      "contentVersion": "current",
+      "versionScope": "site",
+      "alternates": [
+        {
+          "locale": "en",
+          "contentVersion": "current",
+          "url": "https://merioneeason.github.io/wakapi-api-docs/api.html#definition-v1-alltimerange",
+          "markdown": "https://merioneeason.github.io/wakapi-api-docs/api/schemas/v1-alltimerange-f9eae541e7.md"
+        }
+      ]
+    },
+    {
+      "id": "api/schemas/v1-alltimeviewmodel-1a081651e3.md",
+      "kind": "schema",
+      "title": "v1.AllTimeViewModel",
+      "description": "Field: data.",
+      "tab": "api",
+      "url": "https://merioneeason.github.io/wakapi-api-docs/api.html#definition-v1-alltimeviewmodel",
+      "markdown": "https://merioneeason.github.io/wakapi-api-docs/api/schemas/v1-alltimeviewmodel-1a081651e3.md",
+      "file": "api/schemas/v1-alltimeviewmodel-1a081651e3.md",
+      "searchText": "v1.alltimeviewmodel data v1.alltimedata is_up_to_date true if the stats are up to date; when false, a 202 response code is returned and will be refreshed soon> range v1.alltimerange end end_date start start_date timezone text total time logged since account created as human readable string> total_seconds number of seconds",
+      "documentId": "schema:v1.AllTimeViewModel",
+      "locale": "en",
+      "contentLocale": "en",
+      "contentVersion": "current",
+      "versionScope": "site",
+      "alternates": [
+        {
+          "locale": "en",
+          "contentVersion": "current",
+          "url": "https://merioneeason.github.io/wakapi-api-docs/api.html#definition-v1-alltimeviewmodel",
+          "markdown": "https://merioneeason.github.io/wakapi-api-docs/api/schemas/v1-alltimeviewmodel-1a081651e3.md"
+        }
+      ]
+    },
+    {
+      "id": "api/schemas/v1-badgedata-47ade4169f.md",
+      "kind": "schema",
+      "title": "v1.BadgeData",
+      "description": "Fields: color, label, message and schemaVersion.",
+      "tab": "api",
+      "url": "https://merioneeason.github.io/wakapi-api-docs/api.html#definition-v1-badgedata",
+      "markdown": "https://merioneeason.github.io/wakapi-api-docs/api/schemas/v1-badgedata-47ade4169f.md",
+      "file": "api/schemas/v1-badgedata-47ade4169f.md",
+      "searchText": "v1.badgedata color label message schemaversion",
+      "documentId": "schema:v1.BadgeData",
+      "locale": "en",
+      "contentLocale": "en",
+      "contentVersion": "current",
+      "versionScope": "site",
+      "alternates": [
+        {
+          "locale": "en",
+          "contentVersion": "current",
+          "url": "https://merioneeason.github.io/wakapi-api-docs/api.html#definition-v1-badgedata",
+          "markdown": "https://merioneeason.github.io/wakapi-api-docs/api/schemas/v1-badgedata-47ade4169f.md"
+        }
+      ]
+    },
+    {
+      "id": "api/schemas/v1-heartbeatentry-098b939fbd.md",
+      "kind": "schema",
+      "title": "v1.HeartbeatEntry",
+      "description": "Fields: ai_input_tokens, ai_line_changes, ai_output_tokens, ai_prompt_length, ai_session, branch and 18 more.",
+      "tab": "api",
+      "url": "https://merioneeason.github.io/wakapi-api-docs/api.html#definition-v1-heartbeatentry",
+      "markdown": "https://merioneeason.github.io/wakapi-api-docs/api/schemas/v1-heartbeatentry-098b939fbd.md",
+      "file": "api/schemas/v1-heartbeatentry-098b939fbd.md",
+      "searchText": "v1.heartbeatentry ai_input_tokens ai_line_changes ai_output_tokens ai_prompt_length ai_session branch category created_at cursorpos entity human_line_changes id is_write language line_additions line_deletions lineno lines machine_name_id project time type user_agent_id user_id",
+      "documentId": "schema:v1.HeartbeatEntry",
+      "locale": "en",
+      "contentLocale": "en",
+      "contentVersion": "current",
+      "versionScope": "site",
+      "alternates": [
+        {
+          "locale": "en",
+          "contentVersion": "current",
+          "url": "https://merioneeason.github.io/wakapi-api-docs/api.html#definition-v1-heartbeatentry",
+          "markdown": "https://merioneeason.github.io/wakapi-api-docs/api/schemas/v1-heartbeatentry-098b939fbd.md"
+        }
+      ]
+    },
+    {
+      "id": "api/schemas/v1-heartbeatsresult-a519901c6e.md",
+      "kind": "schema",
+      "title": "v1.HeartbeatsResult",
+      "description": "Fields: data, end, start and timezone.",
+      "tab": "api",
+      "url": "https://merioneeason.github.io/wakapi-api-docs/api.html#definition-v1-heartbeatsresult",
+      "markdown": "https://merioneeason.github.io/wakapi-api-docs/api/schemas/v1-heartbeatsresult-a519901c6e.md",
+      "file": "api/schemas/v1-heartbeatsresult-a519901c6e.md",
+      "searchText": "v1.heartbeatsresult data v1.heartbeatentry ai_input_tokens ai_line_changes ai_output_tokens ai_prompt_length ai_session branch category created_at cursorpos entity human_line_changes id is_write language line_additions line_deletions lineno lines machine_name_id project time type user_agent_id user_id end start timezone",
+      "documentId": "schema:v1.HeartbeatsResult",
+      "locale": "en",
+      "contentLocale": "en",
+      "contentVersion": "current",
+      "versionScope": "site",
+      "alternates": [
+        {
+          "locale": "en",
+          "contentVersion": "current",
+          "url": "https://merioneeason.github.io/wakapi-api-docs/api.html#definition-v1-heartbeatsresult",
+          "markdown": "https://merioneeason.github.io/wakapi-api-docs/api/schemas/v1-heartbeatsresult-a519901c6e.md"
+        }
+      ]
+    },
+    {
+      "id": "api/schemas/v1-leaderscurrentuser-8b16ecc1ab.md",
+      "kind": "schema",
+      "title": "v1.LeadersCurrentUser",
+      "description": "Fields: page, rank and user.",
+      "tab": "api",
+      "url": "https://merioneeason.github.io/wakapi-api-docs/api.html#definition-v1-leaderscurrentuser",
+      "markdown": "https://merioneeason.github.io/wakapi-api-docs/api/schemas/v1-leaderscurrentuser-8b16ecc1ab.md",
+      "file": "api/schemas/v1-leaderscurrentuser-8b16ecc1ab.md",
+      "searchText": "v1.leaderscurrentuser page rank user v1.user created_at display_name email full_name id is_email_confirmed is_email_public last_heartbeat_at last_plugin_name last_project modified_at photo timezone username website",
+      "documentId": "schema:v1.LeadersCurrentUser",
+      "locale": "en",
+      "contentLocale": "en",
+      "contentVersion": "current",
+      "versionScope": "site",
+      "alternates": [
+        {
+          "locale": "en",
+          "contentVersion": "current",
+          "url": "https://merioneeason.github.io/wakapi-api-docs/api.html#definition-v1-leaderscurrentuser",
+          "markdown": "https://merioneeason.github.io/wakapi-api-docs/api/schemas/v1-leaderscurrentuser-8b16ecc1ab.md"
+        }
+      ]
+    },
+    {
+      "id": "api/schemas/v1-leadersentry-d56388d7b8.md",
+      "kind": "schema",
+      "title": "v1.LeadersEntry",
+      "description": "Fields: rank, running_total and user.",
+      "tab": "api",
+      "url": "https://merioneeason.github.io/wakapi-api-docs/api.html#definition-v1-leadersentry",
+      "markdown": "https://merioneeason.github.io/wakapi-api-docs/api/schemas/v1-leadersentry-d56388d7b8.md",
+      "file": "api/schemas/v1-leadersentry-d56388d7b8.md",
+      "searchText": "v1.leadersentry rank running_total v1.leadersrunningtotal daily_average human_readable_daily_average human_readable_total languages v1.leaderslanguage name total_seconds user v1.user created_at display_name email full_name id is_email_confirmed is_email_public last_heartbeat_at last_plugin_name last_project modified_at photo timezone username website",
+      "documentId": "schema:v1.LeadersEntry",
+      "locale": "en",
+      "contentLocale": "en",
+      "contentVersion": "current",
+      "versionScope": "site",
+      "alternates": [
+        {
+          "locale": "en",
+          "contentVersion": "current",
+          "url": "https://merioneeason.github.io/wakapi-api-docs/api.html#definition-v1-leadersentry",
+          "markdown": "https://merioneeason.github.io/wakapi-api-docs/api/schemas/v1-leadersentry-d56388d7b8.md"
+        }
+      ]
+    },
+    {
+      "id": "api/schemas/v1-leaderslanguage-e6fc78a4e3.md",
+      "kind": "schema",
+      "title": "v1.LeadersLanguage",
+      "description": "Fields: name and total_seconds.",
+      "tab": "api",
+      "url": "https://merioneeason.github.io/wakapi-api-docs/api.html#definition-v1-leaderslanguage",
+      "markdown": "https://merioneeason.github.io/wakapi-api-docs/api/schemas/v1-leaderslanguage-e6fc78a4e3.md",
+      "file": "api/schemas/v1-leaderslanguage-e6fc78a4e3.md",
+      "searchText": "v1.leaderslanguage name total_seconds",
+      "documentId": "schema:v1.LeadersLanguage",
+      "locale": "en",
+      "contentLocale": "en",
+      "contentVersion": "current",
+      "versionScope": "site",
+      "alternates": [
+        {
+          "locale": "en",
+          "contentVersion": "current",
+          "url": "https://merioneeason.github.io/wakapi-api-docs/api.html#definition-v1-leaderslanguage",
+          "markdown": "https://merioneeason.github.io/wakapi-api-docs/api/schemas/v1-leaderslanguage-e6fc78a4e3.md"
+        }
+      ]
+    },
+    {
+      "id": "api/schemas/v1-leadersrange-ec17d9cfce.md",
+      "kind": "schema",
+      "title": "v1.LeadersRange",
+      "description": "Fields: end_date, end_text, name, start_date, start_text and text.",
+      "tab": "api",
+      "url": "https://merioneeason.github.io/wakapi-api-docs/api.html#definition-v1-leadersrange",
+      "markdown": "https://merioneeason.github.io/wakapi-api-docs/api/schemas/v1-leadersrange-ec17d9cfce.md",
+      "file": "api/schemas/v1-leadersrange-ec17d9cfce.md",
+      "searchText": "v1.leadersrange end_date end_text name start_date start_text text",
+      "documentId": "schema:v1.LeadersRange",
+      "locale": "en",
+      "contentLocale": "en",
+      "contentVersion": "current",
+      "versionScope": "site",
+      "alternates": [
+        {
+          "locale": "en",
+          "contentVersion": "current",
+          "url": "https://merioneeason.github.io/wakapi-api-docs/api.html#definition-v1-leadersrange",
+          "markdown": "https://merioneeason.github.io/wakapi-api-docs/api/schemas/v1-leadersrange-ec17d9cfce.md"
+        }
+      ]
+    },
+    {
+      "id": "api/schemas/v1-leadersrunningtotal-518252c847.md",
+      "kind": "schema",
+      "title": "v1.LeadersRunningTotal",
+      "description": "Fields: daily_average, human_readable_daily_average, human_readable_total, languages and total_seconds.",
+      "tab": "api",
+      "url": "https://merioneeason.github.io/wakapi-api-docs/api.html#definition-v1-leadersrunningtotal",
+      "markdown": "https://merioneeason.github.io/wakapi-api-docs/api/schemas/v1-leadersrunningtotal-518252c847.md",
+      "file": "api/schemas/v1-leadersrunningtotal-518252c847.md",
+      "searchText": "v1.leadersrunningtotal daily_average human_readable_daily_average human_readable_total languages v1.leaderslanguage name total_seconds",
+      "documentId": "schema:v1.LeadersRunningTotal",
+      "locale": "en",
+      "contentLocale": "en",
+      "contentVersion": "current",
+      "versionScope": "site",
+      "alternates": [
+        {
+          "locale": "en",
+          "contentVersion": "current",
+          "url": "https://merioneeason.github.io/wakapi-api-docs/api.html#definition-v1-leadersrunningtotal",
+          "markdown": "https://merioneeason.github.io/wakapi-api-docs/api/schemas/v1-leadersrunningtotal-518252c847.md"
+        }
+      ]
+    },
+    {
+      "id": "api/schemas/v1-leadersviewmodel-f47fef1205.md",
+      "kind": "schema",
+      "title": "v1.LeadersViewModel",
+      "description": "Fields: current_user, data, language, page, range and total_pages.",
+      "tab": "api",
+      "url": "https://merioneeason.github.io/wakapi-api-docs/api.html#definition-v1-leadersviewmodel",
+      "markdown": "https://merioneeason.github.io/wakapi-api-docs/api/schemas/v1-leadersviewmodel-f47fef1205.md",
+      "file": "api/schemas/v1-leadersviewmodel-f47fef1205.md",
+      "searchText": "v1.leadersviewmodel current_user v1.leaderscurrentuser page rank user v1.user created_at display_name email full_name id is_email_confirmed is_email_public last_heartbeat_at last_plugin_name last_project modified_at photo timezone username website data v1.leadersentry running_total v1.leadersrunningtotal daily_average human_readable_daily_average human_readable_total languages v1.leaderslanguage name total_seconds language range v1.leadersrange end_date end_text start_date start_text text total_pages",
+      "documentId": "schema:v1.LeadersViewModel",
+      "locale": "en",
+      "contentLocale": "en",
+      "contentVersion": "current",
+      "versionScope": "site",
+      "alternates": [
+        {
+          "locale": "en",
+          "contentVersion": "current",
+          "url": "https://merioneeason.github.io/wakapi-api-docs/api.html#definition-v1-leadersviewmodel",
+          "markdown": "https://merioneeason.github.io/wakapi-api-docs/api/schemas/v1-leadersviewmodel-f47fef1205.md"
+        }
+      ]
+    },
+    {
+      "id": "api/schemas/v1-project-f03d608c26.md",
+      "kind": "schema",
+      "title": "v1.Project",
+      "description": "Fields: created_at, human_readable_last_heartbeat_at, id, last_heartbeat_at, name and urlencoded_name.",
+      "tab": "api",
+      "url": "https://merioneeason.github.io/wakapi-api-docs/api.html#definition-v1-project",
+      "markdown": "https://merioneeason.github.io/wakapi-api-docs/api/schemas/v1-project-f03d608c26.md",
+      "file": "api/schemas/v1-project-f03d608c26.md",
+      "searchText": "v1.project created_at human_readable_last_heartbeat_at id last_heartbeat_at name urlencoded_name",
+      "documentId": "schema:v1.Project",
+      "locale": "en",
+      "contentLocale": "en",
+      "contentVersion": "current",
+      "versionScope": "site",
+      "alternates": [
+        {
+          "locale": "en",
+          "contentVersion": "current",
+          "url": "https://merioneeason.github.io/wakapi-api-docs/api.html#definition-v1-project",
+          "markdown": "https://merioneeason.github.io/wakapi-api-docs/api/schemas/v1-project-f03d608c26.md"
+        }
+      ]
+    },
+    {
+      "id": "api/schemas/v1-projectviewmodel-8ea550aca8.md",
+      "kind": "schema",
+      "title": "v1.ProjectViewModel",
+      "description": "Field: data.",
+      "tab": "api",
+      "url": "https://merioneeason.github.io/wakapi-api-docs/api.html#definition-v1-projectviewmodel",
+      "markdown": "https://merioneeason.github.io/wakapi-api-docs/api/schemas/v1-projectviewmodel-8ea550aca8.md",
+      "file": "api/schemas/v1-projectviewmodel-8ea550aca8.md",
+      "searchText": "v1.projectviewmodel data v1.project created_at human_readable_last_heartbeat_at id last_heartbeat_at name urlencoded_name",
+      "documentId": "schema:v1.ProjectViewModel",
+      "locale": "en",
+      "contentLocale": "en",
+      "contentVersion": "current",
+      "versionScope": "site",
+      "alternates": [
+        {
+          "locale": "en",
+          "contentVersion": "current",
+          "url": "https://merioneeason.github.io/wakapi-api-docs/api.html#definition-v1-projectviewmodel",
+          "markdown": "https://merioneeason.github.io/wakapi-api-docs/api/schemas/v1-projectviewmodel-8ea550aca8.md"
+        }
+      ]
+    },
+    {
+      "id": "api/schemas/v1-projectsviewmodel-6e85219321.md",
+      "kind": "schema",
+      "title": "v1.ProjectsViewModel",
+      "description": "Field: data.",
+      "tab": "api",
+      "url": "https://merioneeason.github.io/wakapi-api-docs/api.html#definition-v1-projectsviewmodel",
+      "markdown": "https://merioneeason.github.io/wakapi-api-docs/api/schemas/v1-projectsviewmodel-6e85219321.md",
+      "file": "api/schemas/v1-projectsviewmodel-6e85219321.md",
+      "searchText": "v1.projectsviewmodel data v1.project created_at human_readable_last_heartbeat_at id last_heartbeat_at name urlencoded_name",
+      "documentId": "schema:v1.ProjectsViewModel",
+      "locale": "en",
+      "contentLocale": "en",
+      "contentVersion": "current",
+      "versionScope": "site",
+      "alternates": [
+        {
+          "locale": "en",
+          "contentVersion": "current",
+          "url": "https://merioneeason.github.io/wakapi-api-docs/api.html#definition-v1-projectsviewmodel",
+          "markdown": "https://merioneeason.github.io/wakapi-api-docs/api/schemas/v1-projectsviewmodel-6e85219321.md"
+        }
+      ]
+    },
+    {
+      "id": "api/schemas/v1-statsdata-13d21281ba.md",
+      "kind": "schema",
+      "title": "v1.StatsData",
+      "description": "Fields: branches, categories, daily_average, days_including_holidays, editors, end and 16 more.",
+      "tab": "api",
+      "url": "https://merioneeason.github.io/wakapi-api-docs/api.html#definition-v1-statsdata",
+      "markdown": "https://merioneeason.github.io/wakapi-api-docs/api/schemas/v1-statsdata-13d21281ba.md",
+      "file": "api/schemas/v1-statsdata-13d21281ba.md",
+      "searchText": "v1.statsdata branches v1.summariesentry digital hours minutes name percent seconds text total_seconds categories daily_average days_including_holidays editors end human_readable_daily_average human_readable_range human_readable_total is_coding_activity_visible is_other_usage_visible languages machines operating_systems projects range start status timezone user_id username",
+      "documentId": "schema:v1.StatsData",
+      "locale": "en",
+      "contentLocale": "en",
+      "contentVersion": "current",
+      "versionScope": "site",
+      "alternates": [
+        {
+          "locale": "en",
+          "contentVersion": "current",
+          "url": "https://merioneeason.github.io/wakapi-api-docs/api.html#definition-v1-statsdata",
+          "markdown": "https://merioneeason.github.io/wakapi-api-docs/api/schemas/v1-statsdata-13d21281ba.md"
+        }
+      ]
+    },
+    {
+      "id": "api/schemas/v1-statsviewmodel-75c04f9e1c.md",
+      "kind": "schema",
+      "title": "v1.StatsViewModel",
+      "description": "Field: data.",
+      "tab": "api",
+      "url": "https://merioneeason.github.io/wakapi-api-docs/api.html#definition-v1-statsviewmodel",
+      "markdown": "https://merioneeason.github.io/wakapi-api-docs/api/schemas/v1-statsviewmodel-75c04f9e1c.md",
+      "file": "api/schemas/v1-statsviewmodel-75c04f9e1c.md",
+      "searchText": "v1.statsviewmodel data v1.statsdata branches v1.summariesentry digital hours minutes name percent seconds text total_seconds categories daily_average days_including_holidays editors end human_readable_daily_average human_readable_range human_readable_total is_coding_activity_visible is_other_usage_visible languages machines operating_systems projects range start status timezone user_id username",
+      "documentId": "schema:v1.StatsViewModel",
+      "locale": "en",
+      "contentLocale": "en",
+      "contentVersion": "current",
+      "versionScope": "site",
+      "alternates": [
+        {
+          "locale": "en",
+          "contentVersion": "current",
+          "url": "https://merioneeason.github.io/wakapi-api-docs/api.html#definition-v1-statsviewmodel",
+          "markdown": "https://merioneeason.github.io/wakapi-api-docs/api/schemas/v1-statsviewmodel-75c04f9e1c.md"
+        }
+      ]
+    },
+    {
+      "id": "api/schemas/v1-statusbarviewmodel-50b8536152.md",
+      "kind": "schema",
+      "title": "v1.StatusBarViewModel",
+      "description": "Fields: cached_at and data.",
+      "tab": "api",
+      "url": "https://merioneeason.github.io/wakapi-api-docs/api.html#definition-v1-statusbarviewmodel",
+      "markdown": "https://merioneeason.github.io/wakapi-api-docs/api/schemas/v1-statusbarviewmodel-50b8536152.md",
+      "file": "api/schemas/v1-statusbarviewmodel-50b8536152.md",
+      "searchText": "v1.statusbarviewmodel cached_at data v1.summariesdata branches v1.summariesentry digital hours minutes name percent seconds text total_seconds categories dependencies editors entities grand_total v1.summariesgrandtotal languages machines operating_systems projects range v1.summariesrange date end start timezone",
+      "documentId": "schema:v1.StatusBarViewModel",
+      "locale": "en",
+      "contentLocale": "en",
+      "contentVersion": "current",
+      "versionScope": "site",
+      "alternates": [
+        {
+          "locale": "en",
+          "contentVersion": "current",
+          "url": "https://merioneeason.github.io/wakapi-api-docs/api.html#definition-v1-statusbarviewmodel",
+          "markdown": "https://merioneeason.github.io/wakapi-api-docs/api/schemas/v1-statusbarviewmodel-50b8536152.md"
+        }
+      ]
+    },
+    {
+      "id": "api/schemas/v1-summariescumulativetotal-b01a3ace0a.md",
+      "kind": "schema",
+      "title": "v1.SummariesCumulativeTotal",
+      "description": "Fields: decimal, digital, seconds and text.",
+      "tab": "api",
+      "url": "https://merioneeason.github.io/wakapi-api-docs/api.html#definition-v1-summariescumulativetotal",
+      "markdown": "https://merioneeason.github.io/wakapi-api-docs/api/schemas/v1-summariescumulativetotal-b01a3ace0a.md",
+      "file": "api/schemas/v1-summariescumulativetotal-b01a3ace0a.md",
+      "searchText": "v1.summariescumulativetotal decimal digital seconds text",
+      "documentId": "schema:v1.SummariesCumulativeTotal",
+      "locale": "en",
+      "contentLocale": "en",
+      "contentVersion": "current",
+      "versionScope": "site",
+      "alternates": [
+        {
+          "locale": "en",
+          "contentVersion": "current",
+          "url": "https://merioneeason.github.io/wakapi-api-docs/api.html#definition-v1-summariescumulativetotal",
+          "markdown": "https://merioneeason.github.io/wakapi-api-docs/api/schemas/v1-summariescumulativetotal-b01a3ace0a.md"
+        }
+      ]
+    },
+    {
+      "id": "api/schemas/v1-summariesdailyaverage-311c81335c.md",
+      "kind": "schema",
+      "title": "v1.SummariesDailyAverage",
+      "description": "Fields: days_including_holidays, days_minus_holidays, holidays, seconds, seconds_including_other_language, text and text_including_other_language.",
+      "tab": "api",
+      "url": "https://merioneeason.github.io/wakapi-api-docs/api.html#definition-v1-summariesdailyaverage",
+      "markdown": "https://merioneeason.github.io/wakapi-api-docs/api/schemas/v1-summariesdailyaverage-311c81335c.md",
+      "file": "api/schemas/v1-summariesdailyaverage-311c81335c.md",
+      "searchText": "v1.summariesdailyaverage days_including_holidays days_minus_holidays holidays seconds seconds_including_other_language text text_including_other_language",
+      "documentId": "schema:v1.SummariesDailyAverage",
+      "locale": "en",
+      "contentLocale": "en",
+      "contentVersion": "current",
+      "versionScope": "site",
+      "alternates": [
+        {
+          "locale": "en",
+          "contentVersion": "current",
+          "url": "https://merioneeason.github.io/wakapi-api-docs/api.html#definition-v1-summariesdailyaverage",
+          "markdown": "https://merioneeason.github.io/wakapi-api-docs/api/schemas/v1-summariesdailyaverage-311c81335c.md"
+        }
+      ]
+    },
+    {
+      "id": "api/schemas/v1-summariesdata-56360af692.md",
+      "kind": "schema",
+      "title": "v1.SummariesData",
+      "description": "Fields: branches, categories, dependencies, editors, entities, grand_total and 5 more.",
+      "tab": "api",
+      "url": "https://merioneeason.github.io/wakapi-api-docs/api.html#definition-v1-summariesdata",
+      "markdown": "https://merioneeason.github.io/wakapi-api-docs/api/schemas/v1-summariesdata-56360af692.md",
+      "file": "api/schemas/v1-summariesdata-56360af692.md",
+      "searchText": "v1.summariesdata branches v1.summariesentry digital hours minutes name percent seconds text total_seconds categories dependencies editors entities grand_total v1.summariesgrandtotal languages machines operating_systems projects range v1.summariesrange date end start timezone",
+      "documentId": "schema:v1.SummariesData",
+      "locale": "en",
+      "contentLocale": "en",
+      "contentVersion": "current",
+      "versionScope": "site",
+      "alternates": [
+        {
+          "locale": "en",
+          "contentVersion": "current",
+          "url": "https://merioneeason.github.io/wakapi-api-docs/api.html#definition-v1-summariesdata",
+          "markdown": "https://merioneeason.github.io/wakapi-api-docs/api/schemas/v1-summariesdata-56360af692.md"
+        }
+      ]
+    },
+    {
+      "id": "api/schemas/v1-summariesentry-f3bd317fd7.md",
+      "kind": "schema",
+      "title": "v1.SummariesEntry",
+      "description": "Fields: digital, hours, minutes, name, percent, seconds and 2 more.",
+      "tab": "api",
+      "url": "https://merioneeason.github.io/wakapi-api-docs/api.html#definition-v1-summariesentry",
+      "markdown": "https://merioneeason.github.io/wakapi-api-docs/api/schemas/v1-summariesentry-f3bd317fd7.md",
+      "file": "api/schemas/v1-summariesentry-f3bd317fd7.md",
+      "searchText": "v1.summariesentry digital hours minutes name percent seconds text total_seconds",
+      "documentId": "schema:v1.SummariesEntry",
+      "locale": "en",
+      "contentLocale": "en",
+      "contentVersion": "current",
+      "versionScope": "site",
+      "alternates": [
+        {
+          "locale": "en",
+          "contentVersion": "current",
+          "url": "https://merioneeason.github.io/wakapi-api-docs/api.html#definition-v1-summariesentry",
+          "markdown": "https://merioneeason.github.io/wakapi-api-docs/api/schemas/v1-summariesentry-f3bd317fd7.md"
+        }
+      ]
+    },
+    {
+      "id": "api/schemas/v1-summariesgrandtotal-4bb8010130.md",
+      "kind": "schema",
+      "title": "v1.SummariesGrandTotal",
+      "description": "Fields: digital, hours, minutes, text and total_seconds.",
+      "tab": "api",
+      "url": "https://merioneeason.github.io/wakapi-api-docs/api.html#definition-v1-summariesgrandtotal",
+      "markdown": "https://merioneeason.github.io/wakapi-api-docs/api/schemas/v1-summariesgrandtotal-4bb8010130.md",
+      "file": "api/schemas/v1-summariesgrandtotal-4bb8010130.md",
+      "searchText": "v1.summariesgrandtotal digital hours minutes text total_seconds",
+      "documentId": "schema:v1.SummariesGrandTotal",
+      "locale": "en",
+      "contentLocale": "en",
+      "contentVersion": "current",
+      "versionScope": "site",
+      "alternates": [
+        {
+          "locale": "en",
+          "contentVersion": "current",
+          "url": "https://merioneeason.github.io/wakapi-api-docs/api.html#definition-v1-summariesgrandtotal",
+          "markdown": "https://merioneeason.github.io/wakapi-api-docs/api/schemas/v1-summariesgrandtotal-4bb8010130.md"
+        }
+      ]
+    },
+    {
+      "id": "api/schemas/v1-summariesrange-b81ba9eb5e.md",
+      "kind": "schema",
+      "title": "v1.SummariesRange",
+      "description": "Fields: date, end, start, text and timezone.",
+      "tab": "api",
+      "url": "https://merioneeason.github.io/wakapi-api-docs/api.html#definition-v1-summariesrange",
+      "markdown": "https://merioneeason.github.io/wakapi-api-docs/api/schemas/v1-summariesrange-b81ba9eb5e.md",
+      "file": "api/schemas/v1-summariesrange-b81ba9eb5e.md",
+      "searchText": "v1.summariesrange date end start text timezone",
+      "documentId": "schema:v1.SummariesRange",
+      "locale": "en",
+      "contentLocale": "en",
+      "contentVersion": "current",
+      "versionScope": "site",
+      "alternates": [
+        {
+          "locale": "en",
+          "contentVersion": "current",
+          "url": "https://merioneeason.github.io/wakapi-api-docs/api.html#definition-v1-summariesrange",
+          "markdown": "https://merioneeason.github.io/wakapi-api-docs/api/schemas/v1-summariesrange-b81ba9eb5e.md"
+        }
+      ]
+    },
+    {
+      "id": "api/schemas/v1-summariesviewmodel-a34e1ba44f.md",
+      "kind": "schema",
+      "title": "v1.SummariesViewModel",
+      "description": "Fields: cumulative_total, daily_average, data, end and start.",
+      "tab": "api",
+      "url": "https://merioneeason.github.io/wakapi-api-docs/api.html#definition-v1-summariesviewmodel",
+      "markdown": "https://merioneeason.github.io/wakapi-api-docs/api/schemas/v1-summariesviewmodel-a34e1ba44f.md",
+      "file": "api/schemas/v1-summariesviewmodel-a34e1ba44f.md",
+      "searchText": "v1.summariesviewmodel cumulative_total v1.summariescumulativetotal decimal digital seconds text daily_average v1.summariesdailyaverage days_including_holidays days_minus_holidays holidays seconds_including_other_language text_including_other_language data v1.summariesdata branches v1.summariesentry hours minutes name percent total_seconds categories dependencies editors entities grand_total v1.summariesgrandtotal languages machines operating_systems projects range v1.summariesrange date end start timezone",
+      "documentId": "schema:v1.SummariesViewModel",
+      "locale": "en",
+      "contentLocale": "en",
+      "contentVersion": "current",
+      "versionScope": "site",
+      "alternates": [
+        {
+          "locale": "en",
+          "contentVersion": "current",
+          "url": "https://merioneeason.github.io/wakapi-api-docs/api.html#definition-v1-summariesviewmodel",
+          "markdown": "https://merioneeason.github.io/wakapi-api-docs/api/schemas/v1-summariesviewmodel-a34e1ba44f.md"
+        }
+      ]
+    },
+    {
+      "id": "api/schemas/v1-user-d38c47dfa9.md",
+      "kind": "schema",
+      "title": "v1.User",
+      "description": "Fields: created_at, display_name, email, full_name, id, is_email_confirmed and 9 more.",
+      "tab": "api",
+      "url": "https://merioneeason.github.io/wakapi-api-docs/api.html#definition-v1-user",
+      "markdown": "https://merioneeason.github.io/wakapi-api-docs/api/schemas/v1-user-d38c47dfa9.md",
+      "file": "api/schemas/v1-user-d38c47dfa9.md",
+      "searchText": "v1.user created_at display_name email full_name id is_email_confirmed is_email_public last_heartbeat_at last_plugin_name last_project modified_at photo timezone username website",
+      "documentId": "schema:v1.User",
+      "locale": "en",
+      "contentLocale": "en",
+      "contentVersion": "current",
+      "versionScope": "site",
+      "alternates": [
+        {
+          "locale": "en",
+          "contentVersion": "current",
+          "url": "https://merioneeason.github.io/wakapi-api-docs/api.html#definition-v1-user",
+          "markdown": "https://merioneeason.github.io/wakapi-api-docs/api/schemas/v1-user-d38c47dfa9.md"
+        }
+      ]
+    },
+    {
+      "id": "api/schemas/v1-useragententry-0cb80eb31e.md",
+      "kind": "schema",
+      "title": "v1.UserAgentEntry",
+      "description": "Fields: editor, first_seen, id, is_browser_extension, is_desktop_app, last_seen and 3 more.",
+      "tab": "api",
+      "url": "https://merioneeason.github.io/wakapi-api-docs/api.html#definition-v1-useragententry",
+      "markdown": "https://merioneeason.github.io/wakapi-api-docs/api/schemas/v1-useragententry-0cb80eb31e.md",
+      "file": "api/schemas/v1-useragententry-0cb80eb31e.md",
+      "searchText": "v1.useragententry editor first_seen id is_browser_extension currently not implemented is_desktop_app last_seen os value version",
+      "documentId": "schema:v1.UserAgentEntry",
+      "locale": "en",
+      "contentLocale": "en",
+      "contentVersion": "current",
+      "versionScope": "site",
+      "alternates": [
+        {
+          "locale": "en",
+          "contentVersion": "current",
+          "url": "https://merioneeason.github.io/wakapi-api-docs/api.html#definition-v1-useragententry",
+          "markdown": "https://merioneeason.github.io/wakapi-api-docs/api/schemas/v1-useragententry-0cb80eb31e.md"
+        }
+      ]
+    },
+    {
+      "id": "api/schemas/v1-useragentsviewmodel-d67192c07f.md",
+      "kind": "schema",
+      "title": "v1.UserAgentsViewModel",
+      "description": "Fields: data and total_pages.",
+      "tab": "api",
+      "url": "https://merioneeason.github.io/wakapi-api-docs/api.html#definition-v1-useragentsviewmodel",
+      "markdown": "https://merioneeason.github.io/wakapi-api-docs/api/schemas/v1-useragentsviewmodel-d67192c07f.md",
+      "file": "api/schemas/v1-useragentsviewmodel-d67192c07f.md",
+      "searchText": "v1.useragentsviewmodel data v1.useragententry editor first_seen id is_browser_extension currently not implemented is_desktop_app last_seen os value version total_pages",
+      "documentId": "schema:v1.UserAgentsViewModel",
+      "locale": "en",
+      "contentLocale": "en",
+      "contentVersion": "current",
+      "versionScope": "site",
+      "alternates": [
+        {
+          "locale": "en",
+          "contentVersion": "current",
+          "url": "https://merioneeason.github.io/wakapi-api-docs/api.html#definition-v1-useragentsviewmodel",
+          "markdown": "https://merioneeason.github.io/wakapi-api-docs/api/schemas/v1-useragentsviewmodel-d67192c07f.md"
+        }
+      ]
+    },
+    {
+      "id": "api/schemas/v1-userviewmodel-259ed4bd55.md",
+      "kind": "schema",
+      "title": "v1.UserViewModel",
+      "description": "Field: data.",
+      "tab": "api",
+      "url": "https://merioneeason.github.io/wakapi-api-docs/api.html#definition-v1-userviewmodel",
+      "markdown": "https://merioneeason.github.io/wakapi-api-docs/api/schemas/v1-userviewmodel-259ed4bd55.md",
+      "file": "api/schemas/v1-userviewmodel-259ed4bd55.md",
+      "searchText": "v1.userviewmodel data v1.user created_at display_name email full_name id is_email_confirmed is_email_public last_heartbeat_at last_plugin_name last_project modified_at photo timezone username website",
+      "documentId": "schema:v1.UserViewModel",
+      "locale": "en",
+      "contentLocale": "en",
+      "contentVersion": "current",
+      "versionScope": "site",
+      "alternates": [
+        {
+          "locale": "en",
+          "contentVersion": "current",
+          "url": "https://merioneeason.github.io/wakapi-api-docs/api.html#definition-v1-userviewmodel",
+          "markdown": "https://merioneeason.github.io/wakapi-api-docs/api/schemas/v1-userviewmodel-259ed4bd55.md"
+        }
+      ]
+    }
+  ]
+}

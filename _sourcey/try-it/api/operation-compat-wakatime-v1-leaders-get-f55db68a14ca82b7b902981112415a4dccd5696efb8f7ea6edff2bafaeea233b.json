@@ -1,0 +1,1 @@
+{"shared":[],"value":{"operation":{"method":"get","path":"/compat/wakatime/v1/leaders","parameters":[],"security":[{"ApiKeyAuth":[]}]},"servers":[{"url":"/"}],"securitySchemes":{"ApiKeyAuth":{"type":"apiKey","name":"Authorization","in":"header","deprecated":false}},"languages":["curl","javascript","python"],"credentials":"same-origin","specKey":"api","version":"1.0"}}

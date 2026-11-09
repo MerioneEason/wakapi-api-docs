@@ -1,0 +1,262 @@
+{
+  "/wakapi-api-docs/index.md": {
+    "Content-Type": "text/markdown; charset=utf-8",
+    "Link": "<https://merioneeason.github.io/wakapi-api-docs/>; rel=\"canonical\", <https://merioneeason.github.io/wakapi-api-docs/llms.txt>; rel=\"describedby\""
+  },
+  "/wakapi-api-docs/authentication.md": {
+    "Content-Type": "text/markdown; charset=utf-8",
+    "Link": "<https://merioneeason.github.io/wakapi-api-docs/authentication.html>; rel=\"canonical\", <https://merioneeason.github.io/wakapi-api-docs/llms.txt>; rel=\"describedby\""
+  },
+  "/wakapi-api-docs/heartbeats.md": {
+    "Content-Type": "text/markdown; charset=utf-8",
+    "Link": "<https://merioneeason.github.io/wakapi-api-docs/heartbeats.html>; rel=\"canonical\", <https://merioneeason.github.io/wakapi-api-docs/llms.txt>; rel=\"describedby\""
+  },
+  "/wakapi-api-docs/api.md": {
+    "Content-Type": "text/markdown; charset=utf-8",
+    "Link": "<https://merioneeason.github.io/wakapi-api-docs/api.html>; rel=\"canonical\", <https://merioneeason.github.io/wakapi-api-docs/llms.txt>; rel=\"describedby\""
+  },
+  "/wakapi-api-docs/api/operations/operation-compat-shields-v1-user-interval-filter-get.md": {
+    "Content-Type": "text/markdown; charset=utf-8",
+    "Link": "<https://merioneeason.github.io/wakapi-api-docs/api.html#operation-compat-shields-v1-user-interval-filter-get>; rel=\"canonical\", <https://merioneeason.github.io/wakapi-api-docs/llms.txt>; rel=\"describedby\""
+  },
+  "/wakapi-api-docs/api/operations/operation-compat-wakatime-v1-leaders-get.md": {
+    "Content-Type": "text/markdown; charset=utf-8",
+    "Link": "<https://merioneeason.github.io/wakapi-api-docs/api.html#operation-compat-wakatime-v1-leaders-get>; rel=\"canonical\", <https://merioneeason.github.io/wakapi-api-docs/llms.txt>; rel=\"describedby\""
+  },
+  "/wakapi-api-docs/api/operations/operation-compat-wakatime-v1-users-user-get.md": {
+    "Content-Type": "text/markdown; charset=utf-8",
+    "Link": "<https://merioneeason.github.io/wakapi-api-docs/api.html#operation-compat-wakatime-v1-users-user-get>; rel=\"canonical\", <https://merioneeason.github.io/wakapi-api-docs/llms.txt>; rel=\"describedby\""
+  },
+  "/wakapi-api-docs/api/operations/operation-compat-wakatime-v1-users-user-all-time-since-today-get.md": {
+    "Content-Type": "text/markdown; charset=utf-8",
+    "Link": "<https://merioneeason.github.io/wakapi-api-docs/api.html#operation-compat-wakatime-v1-users-user-all-time-since-today-get>; rel=\"canonical\", <https://merioneeason.github.io/wakapi-api-docs/llms.txt>; rel=\"describedby\""
+  },
+  "/wakapi-api-docs/api/operations/operation-compat-wakatime-v1-users-user-heartbeats-get.md": {
+    "Content-Type": "text/markdown; charset=utf-8",
+    "Link": "<https://merioneeason.github.io/wakapi-api-docs/api.html#operation-compat-wakatime-v1-users-user-heartbeats-get>; rel=\"canonical\", <https://merioneeason.github.io/wakapi-api-docs/llms.txt>; rel=\"describedby\""
+  },
+  "/wakapi-api-docs/api/operations/operation-compat-wakatime-v1-users-user-heartbeats-post.md": {
+    "Content-Type": "text/markdown; charset=utf-8",
+    "Link": "<https://merioneeason.github.io/wakapi-api-docs/api.html#operation-compat-wakatime-v1-users-user-heartbeats-post>; rel=\"canonical\", <https://merioneeason.github.io/wakapi-api-docs/llms.txt>; rel=\"describedby\""
+  },
+  "/wakapi-api-docs/api/operations/operation-compat-wakatime-v1-users-user-heartbeats-bulk-post.md": {
+    "Content-Type": "text/markdown; charset=utf-8",
+    "Link": "<https://merioneeason.github.io/wakapi-api-docs/api.html#operation-compat-wakatime-v1-users-user-heartbeats-bulk-post>; rel=\"canonical\", <https://merioneeason.github.io/wakapi-api-docs/llms.txt>; rel=\"describedby\""
+  },
+  "/wakapi-api-docs/api/operations/operation-compat-wakatime-v1-users-user-projects-get.md": {
+    "Content-Type": "text/markdown; charset=utf-8",
+    "Link": "<https://merioneeason.github.io/wakapi-api-docs/api.html#operation-compat-wakatime-v1-users-user-projects-get>; rel=\"canonical\", <https://merioneeason.github.io/wakapi-api-docs/llms.txt>; rel=\"describedby\""
+  },
+  "/wakapi-api-docs/api/operations/operation-compat-wakatime-v1-users-user-projects-id-get.md": {
+    "Content-Type": "text/markdown; charset=utf-8",
+    "Link": "<https://merioneeason.github.io/wakapi-api-docs/api.html#operation-compat-wakatime-v1-users-user-projects-id-get>; rel=\"canonical\", <https://merioneeason.github.io/wakapi-api-docs/llms.txt>; rel=\"describedby\""
+  },
+  "/wakapi-api-docs/api/operations/operation-compat-wakatime-v1-users-user-stats-range-get.md": {
+    "Content-Type": "text/markdown; charset=utf-8",
+    "Link": "<https://merioneeason.github.io/wakapi-api-docs/api.html#operation-compat-wakatime-v1-users-user-stats-range-get>; rel=\"canonical\", <https://merioneeason.github.io/wakapi-api-docs/llms.txt>; rel=\"describedby\""
+  },
+  "/wakapi-api-docs/api/operations/operation-compat-wakatime-v1-users-user-summaries-get.md": {
+    "Content-Type": "text/markdown; charset=utf-8",
+    "Link": "<https://merioneeason.github.io/wakapi-api-docs/api.html#operation-compat-wakatime-v1-users-user-summaries-get>; rel=\"canonical\", <https://merioneeason.github.io/wakapi-api-docs/llms.txt>; rel=\"describedby\""
+  },
+  "/wakapi-api-docs/api/operations/operation-compat-wakatime-v1-users-user-user-agents-get.md": {
+    "Content-Type": "text/markdown; charset=utf-8",
+    "Link": "<https://merioneeason.github.io/wakapi-api-docs/api.html#operation-compat-wakatime-v1-users-user-user-agents-get>; rel=\"canonical\", <https://merioneeason.github.io/wakapi-api-docs/llms.txt>; rel=\"describedby\""
+  },
+  "/wakapi-api-docs/api/operations/operation-health-get.md": {
+    "Content-Type": "text/markdown; charset=utf-8",
+    "Link": "<https://merioneeason.github.io/wakapi-api-docs/api.html#operation-health-get>; rel=\"canonical\", <https://merioneeason.github.io/wakapi-api-docs/llms.txt>; rel=\"describedby\""
+  },
+  "/wakapi-api-docs/api/operations/operation-heartbeat-post.md": {
+    "Content-Type": "text/markdown; charset=utf-8",
+    "Link": "<https://merioneeason.github.io/wakapi-api-docs/api.html#operation-heartbeat-post>; rel=\"canonical\", <https://merioneeason.github.io/wakapi-api-docs/llms.txt>; rel=\"describedby\""
+  },
+  "/wakapi-api-docs/api/operations/operation-heartbeats-post.md": {
+    "Content-Type": "text/markdown; charset=utf-8",
+    "Link": "<https://merioneeason.github.io/wakapi-api-docs/api.html#operation-heartbeats-post>; rel=\"canonical\", <https://merioneeason.github.io/wakapi-api-docs/llms.txt>; rel=\"describedby\""
+  },
+  "/wakapi-api-docs/api/operations/operation-plugins-errors-post.md": {
+    "Content-Type": "text/markdown; charset=utf-8",
+    "Link": "<https://merioneeason.github.io/wakapi-api-docs/api.html#operation-plugins-errors-post>; rel=\"canonical\", <https://merioneeason.github.io/wakapi-api-docs/llms.txt>; rel=\"describedby\""
+  },
+  "/wakapi-api-docs/api/operations/operation-summary-get.md": {
+    "Content-Type": "text/markdown; charset=utf-8",
+    "Link": "<https://merioneeason.github.io/wakapi-api-docs/api.html#operation-summary-get>; rel=\"canonical\", <https://merioneeason.github.io/wakapi-api-docs/llms.txt>; rel=\"describedby\""
+  },
+  "/wakapi-api-docs/api/operations/operation-users-user-heartbeats-post.md": {
+    "Content-Type": "text/markdown; charset=utf-8",
+    "Link": "<https://merioneeason.github.io/wakapi-api-docs/api.html#operation-users-user-heartbeats-post>; rel=\"canonical\", <https://merioneeason.github.io/wakapi-api-docs/llms.txt>; rel=\"describedby\""
+  },
+  "/wakapi-api-docs/api/operations/operation-users-user-heartbeats-bulk-post.md": {
+    "Content-Type": "text/markdown; charset=utf-8",
+    "Link": "<https://merioneeason.github.io/wakapi-api-docs/api.html#operation-users-user-heartbeats-bulk-post>; rel=\"canonical\", <https://merioneeason.github.io/wakapi-api-docs/llms.txt>; rel=\"describedby\""
+  },
+  "/wakapi-api-docs/api/operations/operation-users-user-statusbar-today-get.md": {
+    "Content-Type": "text/markdown; charset=utf-8",
+    "Link": "<https://merioneeason.github.io/wakapi-api-docs/api.html#operation-users-user-statusbar-today-get>; rel=\"canonical\", <https://merioneeason.github.io/wakapi-api-docs/llms.txt>; rel=\"describedby\""
+  },
+  "/wakapi-api-docs/api/operations/operation-v1-users-user-heartbeats-post.md": {
+    "Content-Type": "text/markdown; charset=utf-8",
+    "Link": "<https://merioneeason.github.io/wakapi-api-docs/api.html#operation-v1-users-user-heartbeats-post>; rel=\"canonical\", <https://merioneeason.github.io/wakapi-api-docs/llms.txt>; rel=\"describedby\""
+  },
+  "/wakapi-api-docs/api/operations/operation-v1-users-user-heartbeats-bulk-post.md": {
+    "Content-Type": "text/markdown; charset=utf-8",
+    "Link": "<https://merioneeason.github.io/wakapi-api-docs/api.html#operation-v1-users-user-heartbeats-bulk-post>; rel=\"canonical\", <https://merioneeason.github.io/wakapi-api-docs/llms.txt>; rel=\"describedby\""
+  },
+  "/wakapi-api-docs/api/schemas/models-diagnostics-c10d82a8db.md": {
+    "Content-Type": "text/markdown; charset=utf-8",
+    "Link": "<https://merioneeason.github.io/wakapi-api-docs/api.html#definition-models-diagnostics>; rel=\"canonical\", <https://merioneeason.github.io/wakapi-api-docs/llms.txt>; rel=\"describedby\""
+  },
+  "/wakapi-api-docs/api/schemas/models-heartbeat-c54ef1e7c3.md": {
+    "Content-Type": "text/markdown; charset=utf-8",
+    "Link": "<https://merioneeason.github.io/wakapi-api-docs/api.html#definition-models-heartbeat>; rel=\"canonical\", <https://merioneeason.github.io/wakapi-api-docs/llms.txt>; rel=\"describedby\""
+  },
+  "/wakapi-api-docs/api/schemas/models-summary-2f9cbd6874.md": {
+    "Content-Type": "text/markdown; charset=utf-8",
+    "Link": "<https://merioneeason.github.io/wakapi-api-docs/api.html#definition-models-summary>; rel=\"canonical\", <https://merioneeason.github.io/wakapi-api-docs/llms.txt>; rel=\"describedby\""
+  },
+  "/wakapi-api-docs/api/schemas/models-summaryitem-dc743fb3ae.md": {
+    "Content-Type": "text/markdown; charset=utf-8",
+    "Link": "<https://merioneeason.github.io/wakapi-api-docs/api.html#definition-models-summaryitem>; rel=\"canonical\", <https://merioneeason.github.io/wakapi-api-docs/llms.txt>; rel=\"describedby\""
+  },
+  "/wakapi-api-docs/api/schemas/v1-alltimedata-21c31f6b58.md": {
+    "Content-Type": "text/markdown; charset=utf-8",
+    "Link": "<https://merioneeason.github.io/wakapi-api-docs/api.html#definition-v1-alltimedata>; rel=\"canonical\", <https://merioneeason.github.io/wakapi-api-docs/llms.txt>; rel=\"describedby\""
+  },
+  "/wakapi-api-docs/api/schemas/v1-alltimerange-f9eae541e7.md": {
+    "Content-Type": "text/markdown; charset=utf-8",
+    "Link": "<https://merioneeason.github.io/wakapi-api-docs/api.html#definition-v1-alltimerange>; rel=\"canonical\", <https://merioneeason.github.io/wakapi-api-docs/llms.txt>; rel=\"describedby\""
+  },
+  "/wakapi-api-docs/api/schemas/v1-alltimeviewmodel-1a081651e3.md": {
+    "Content-Type": "text/markdown; charset=utf-8",
+    "Link": "<https://merioneeason.github.io/wakapi-api-docs/api.html#definition-v1-alltimeviewmodel>; rel=\"canonical\", <https://merioneeason.github.io/wakapi-api-docs/llms.txt>; rel=\"describedby\""
+  },
+  "/wakapi-api-docs/api/schemas/v1-badgedata-47ade4169f.md": {
+    "Content-Type": "text/markdown; charset=utf-8",
+    "Link": "<https://merioneeason.github.io/wakapi-api-docs/api.html#definition-v1-badgedata>; rel=\"canonical\", <https://merioneeason.github.io/wakapi-api-docs/llms.txt>; rel=\"describedby\""
+  },
+  "/wakapi-api-docs/api/schemas/v1-heartbeatentry-098b939fbd.md": {
+    "Content-Type": "text/markdown; charset=utf-8",
+    "Link": "<https://merioneeason.github.io/wakapi-api-docs/api.html#definition-v1-heartbeatentry>; rel=\"canonical\", <https://merioneeason.github.io/wakapi-api-docs/llms.txt>; rel=\"describedby\""
+  },
+  "/wakapi-api-docs/api/schemas/v1-heartbeatsresult-a519901c6e.md": {
+    "Content-Type": "text/markdown; charset=utf-8",
+    "Link": "<https://merioneeason.github.io/wakapi-api-docs/api.html#definition-v1-heartbeatsresult>; rel=\"canonical\", <https://merioneeason.github.io/wakapi-api-docs/llms.txt>; rel=\"describedby\""
+  },
+  "/wakapi-api-docs/api/schemas/v1-leaderscurrentuser-8b16ecc1ab.md": {
+    "Content-Type": "text/markdown; charset=utf-8",
+    "Link": "<https://merioneeason.github.io/wakapi-api-docs/api.html#definition-v1-leaderscurrentuser>; rel=\"canonical\", <https://merioneeason.github.io/wakapi-api-docs/llms.txt>; rel=\"describedby\""
+  },
+  "/wakapi-api-docs/api/schemas/v1-leadersentry-d56388d7b8.md": {
+    "Content-Type": "text/markdown; charset=utf-8",
+    "Link": "<https://merioneeason.github.io/wakapi-api-docs/api.html#definition-v1-leadersentry>; rel=\"canonical\", <https://merioneeason.github.io/wakapi-api-docs/llms.txt>; rel=\"describedby\""
+  },
+  "/wakapi-api-docs/api/schemas/v1-leaderslanguage-e6fc78a4e3.md": {
+    "Content-Type": "text/markdown; charset=utf-8",
+    "Link": "<https://merioneeason.github.io/wakapi-api-docs/api.html#definition-v1-leaderslanguage>; rel=\"canonical\", <https://merioneeason.github.io/wakapi-api-docs/llms.txt>; rel=\"describedby\""
+  },
+  "/wakapi-api-docs/api/schemas/v1-leadersrange-ec17d9cfce.md": {
+    "Content-Type": "text/markdown; charset=utf-8",
+    "Link": "<https://merioneeason.github.io/wakapi-api-docs/api.html#definition-v1-leadersrange>; rel=\"canonical\", <https://merioneeason.github.io/wakapi-api-docs/llms.txt>; rel=\"describedby\""
+  },
+  "/wakapi-api-docs/api/schemas/v1-leadersrunningtotal-518252c847.md": {
+    "Content-Type": "text/markdown; charset=utf-8",
+    "Link": "<https://merioneeason.github.io/wakapi-api-docs/api.html#definition-v1-leadersrunningtotal>; rel=\"canonical\", <https://merioneeason.github.io/wakapi-api-docs/llms.txt>; rel=\"describedby\""
+  },
+  "/wakapi-api-docs/api/schemas/v1-leadersviewmodel-f47fef1205.md": {
+    "Content-Type": "text/markdown; charset=utf-8",
+    "Link": "<https://merioneeason.github.io/wakapi-api-docs/api.html#definition-v1-leadersviewmodel>; rel=\"canonical\", <https://merioneeason.github.io/wakapi-api-docs/llms.txt>; rel=\"describedby\""
+  },
+  "/wakapi-api-docs/api/schemas/v1-project-f03d608c26.md": {
+    "Content-Type": "text/markdown; charset=utf-8",
+    "Link": "<https://merioneeason.github.io/wakapi-api-docs/api.html#definition-v1-project>; rel=\"canonical\", <https://merioneeason.github.io/wakapi-api-docs/llms.txt>; rel=\"describedby\""
+  },
+  "/wakapi-api-docs/api/schemas/v1-projectviewmodel-8ea550aca8.md": {
+    "Content-Type": "text/markdown; charset=utf-8",
+    "Link": "<https://merioneeason.github.io/wakapi-api-docs/api.html#definition-v1-projectviewmodel>; rel=\"canonical\", <https://merioneeason.github.io/wakapi-api-docs/llms.txt>; rel=\"describedby\""
+  },
+  "/wakapi-api-docs/api/schemas/v1-projectsviewmodel-6e85219321.md": {
+    "Content-Type": "text/markdown; charset=utf-8",
+    "Link": "<https://merioneeason.github.io/wakapi-api-docs/api.html#definition-v1-projectsviewmodel>; rel=\"canonical\", <https://merioneeason.github.io/wakapi-api-docs/llms.txt>; rel=\"describedby\""
+  },
+  "/wakapi-api-docs/api/schemas/v1-statsdata-13d21281ba.md": {
+    "Content-Type": "text/markdown; charset=utf-8",
+    "Link": "<https://merioneeason.github.io/wakapi-api-docs/api.html#definition-v1-statsdata>; rel=\"canonical\", <https://merioneeason.github.io/wakapi-api-docs/llms.txt>; rel=\"describedby\""
+  },
+  "/wakapi-api-docs/api/schemas/v1-statsviewmodel-75c04f9e1c.md": {
+    "Content-Type": "text/markdown; charset=utf-8",
+    "Link": "<https://merioneeason.github.io/wakapi-api-docs/api.html#definition-v1-statsviewmodel>; rel=\"canonical\", <https://merioneeason.github.io/wakapi-api-docs/llms.txt>; rel=\"describedby\""
+  },
+  "/wakapi-api-docs/api/schemas/v1-statusbarviewmodel-50b8536152.md": {
+    "Content-Type": "text/markdown; charset=utf-8",
+    "Link": "<https://merioneeason.github.io/wakapi-api-docs/api.html#definition-v1-statusbarviewmodel>; rel=\"canonical\", <https://merioneeason.github.io/wakapi-api-docs/llms.txt>; rel=\"describedby\""
+  },
+  "/wakapi-api-docs/api/schemas/v1-summariescumulativetotal-b01a3ace0a.md": {
+    "Content-Type": "text/markdown; charset=utf-8",
+    "Link": "<https://merioneeason.github.io/wakapi-api-docs/api.html#definition-v1-summariescumulativetotal>; rel=\"canonical\", <https://merioneeason.github.io/wakapi-api-docs/llms.txt>; rel=\"describedby\""
+  },
+  "/wakapi-api-docs/api/schemas/v1-summariesdailyaverage-311c81335c.md": {
+    "Content-Type": "text/markdown; charset=utf-8",
+    "Link": "<https://merioneeason.github.io/wakapi-api-docs/api.html#definition-v1-summariesdailyaverage>; rel=\"canonical\", <https://merioneeason.github.io/wakapi-api-docs/llms.txt>; rel=\"describedby\""
+  },
+  "/wakapi-api-docs/api/schemas/v1-summariesdata-56360af692.md": {
+    "Content-Type": "text/markdown; charset=utf-8",
+    "Link": "<https://merioneeason.github.io/wakapi-api-docs/api.html#definition-v1-summariesdata>; rel=\"canonical\", <https://merioneeason.github.io/wakapi-api-docs/llms.txt>; rel=\"describedby\""
+  },
+  "/wakapi-api-docs/api/schemas/v1-summariesentry-f3bd317fd7.md": {
+    "Content-Type": "text/markdown; charset=utf-8",
+    "Link": "<https://merioneeason.github.io/wakapi-api-docs/api.html#definition-v1-summariesentry>; rel=\"canonical\", <https://merioneeason.github.io/wakapi-api-docs/llms.txt>; rel=\"describedby\""
+  },
+  "/wakapi-api-docs/api/schemas/v1-summariesgrandtotal-4bb8010130.md": {
+    "Content-Type": "text/markdown; charset=utf-8",
+    "Link": "<https://merioneeason.github.io/wakapi-api-docs/api.html#definition-v1-summariesgrandtotal>; rel=\"canonical\", <https://merioneeason.github.io/wakapi-api-docs/llms.txt>; rel=\"describedby\""
+  },
+  "/wakapi-api-docs/api/schemas/v1-summariesrange-b81ba9eb5e.md": {
+    "Content-Type": "text/markdown; charset=utf-8",
+    "Link": "<https://merioneeason.github.io/wakapi-api-docs/api.html#definition-v1-summariesrange>; rel=\"canonical\", <https://merioneeason.github.io/wakapi-api-docs/llms.txt>; rel=\"describedby\""
+  },
+  "/wakapi-api-docs/api/schemas/v1-summariesviewmodel-a34e1ba44f.md": {
+    "Content-Type": "text/markdown; charset=utf-8",
+    "Link": "<https://merioneeason.github.io/wakapi-api-docs/api.html#definition-v1-summariesviewmodel>; rel=\"canonical\", <https://merioneeason.github.io/wakapi-api-docs/llms.txt>; rel=\"describedby\""
+  },
+  "/wakapi-api-docs/api/schemas/v1-user-d38c47dfa9.md": {
+    "Content-Type": "text/markdown; charset=utf-8",
+    "Link": "<https://merioneeason.github.io/wakapi-api-docs/api.html#definition-v1-user>; rel=\"canonical\", <https://merioneeason.github.io/wakapi-api-docs/llms.txt>; rel=\"describedby\""
+  },
+  "/wakapi-api-docs/api/schemas/v1-useragententry-0cb80eb31e.md": {
+    "Content-Type": "text/markdown; charset=utf-8",
+    "Link": "<https://merioneeason.github.io/wakapi-api-docs/api.html#definition-v1-useragententry>; rel=\"canonical\", <https://merioneeason.github.io/wakapi-api-docs/llms.txt>; rel=\"describedby\""
+  },
+  "/wakapi-api-docs/api/schemas/v1-useragentsviewmodel-d67192c07f.md": {
+    "Content-Type": "text/markdown; charset=utf-8",
+    "Link": "<https://merioneeason.github.io/wakapi-api-docs/api.html#definition-v1-useragentsviewmodel>; rel=\"canonical\", <https://merioneeason.github.io/wakapi-api-docs/llms.txt>; rel=\"describedby\""
+  },
+  "/wakapi-api-docs/api/schemas/v1-userviewmodel-259ed4bd55.md": {
+    "Content-Type": "text/markdown; charset=utf-8",
+    "Link": "<https://merioneeason.github.io/wakapi-api-docs/api.html#definition-v1-userviewmodel>; rel=\"canonical\", <https://merioneeason.github.io/wakapi-api-docs/llms.txt>; rel=\"describedby\""
+  },
+  "/wakapi-api-docs/documents.json": {
+    "Content-Type": "application/json; charset=utf-8"
+  },
+  "/wakapi-api-docs/llms.txt": {
+    "Content-Type": "text/plain; charset=utf-8"
+  },
+  "/wakapi-api-docs/llms-full.txt": {
+    "Content-Type": "text/plain; charset=utf-8"
+  },
+  "/wakapi-api-docs/": {
+    "Link": "<https://merioneeason.github.io/wakapi-api-docs/index.md>; rel=\"alternate\"; type=\"text/markdown\", <https://merioneeason.github.io/wakapi-api-docs/llms.txt>; rel=\"describedby\"; type=\"text/plain\""
+  },
+  "/wakapi-api-docs/authentication.html": {
+    "Link": "<https://merioneeason.github.io/wakapi-api-docs/authentication.md>; rel=\"alternate\"; type=\"text/markdown\", <https://merioneeason.github.io/wakapi-api-docs/llms.txt>; rel=\"describedby\"; type=\"text/plain\""
+  },
+  "/wakapi-api-docs/heartbeats.html": {
+    "Link": "<https://merioneeason.github.io/wakapi-api-docs/heartbeats.md>; rel=\"alternate\"; type=\"text/markdown\", <https://merioneeason.github.io/wakapi-api-docs/llms.txt>; rel=\"describedby\"; type=\"text/plain\""
+  },
+  "/wakapi-api-docs/api.html": {
+    "Link": "<https://merioneeason.github.io/wakapi-api-docs/api.md>; rel=\"alternate\"; type=\"text/markdown\", <https://merioneeason.github.io/wakapi-api-docs/llms.txt>; rel=\"describedby\"; type=\"text/plain\""
+  },
+  "/wakapi-api-docs/404.html": {
+    "Link": "<https://merioneeason.github.io/wakapi-api-docs/llms.txt>; rel=\"describedby\"; type=\"text/plain\""
+  }
+}
